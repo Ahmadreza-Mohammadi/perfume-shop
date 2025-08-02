@@ -1,5 +1,5 @@
 function page() {
-  return <>page</>;
+  return <>tset color</>;
 }
 
 export default page;

@@ -22,8 +22,8 @@ function Menu() {
   };
 
   return (
-    <div className="w-full flex justify-center fixed bottom-0 left-0 right-0 bg-white py-2">
-      <div className="max-w-[428px] flex justify-center gap-8">
+    <div className="max-w-[428px] m-auto flex justify-center bg-[#F3F3F3] rounded-t-xl fixed bottom-0 left-0 right-0 py-2">
+      <div className=" flex gap-12">
         <span>
           <Image
             onClick={() => handleNavigation("/home")}

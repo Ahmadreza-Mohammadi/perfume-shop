@@ -1,25 +1,32 @@
+"use client";
+
 import Image from "next/image";
-import favoriteIcon from "../../../public/heart.svg";
 import bellIcon from "../../../public/bell.svg";
 import ThemeToggle from "../theme/ThemeToggle";
+import { useTheme } from "next-themes";
+
 
 function HomeHeader() {
+  const { theme } = useTheme();
+  console.log(theme);
+
   return (
-    <div className="flex justify-between p-2">
-      <div>left side</div>
+    <div className="flex justify-between items-center p-2 bg-[#F3F3F3] rounded-b-xl">
       <div className="flex gap-3">
-        <Image
-          src={favoriteIcon}
-          className="w-6 h-6 cursor-pointer"
-          alt="favorites"
-        />
+        {/* <ThemeToggle /> */}
 
         <Image
           src={bellIcon}
           className="w-6 h-6 cursor-pointer"
           alt="favorites"
         />
-        <ThemeToggle />
+      </div>
+      <div className="flex gap-4">
+        <div className="flex flex-col bg-orange-400">
+          <span>صبح بخیر</span>
+          <span className="font-semibold">علیرضا</span>
+        </div>
+        <div>profile</div>
       </div>
     </div>
   );
