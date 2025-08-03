@@ -16,14 +16,13 @@ import { useRouter, usePathname } from "next/navigation";
 function Menu() {
   const router = useRouter();
   const pathname = usePathname();
-  console.log(pathname);
   const handleNavigation = (path: string) => {
     router.push(path);
   };
 
   return (
-    <div className="max-w-[428px] m-auto flex justify-center bg-[#fff]  rounded-t-xl fixed bottom-0 left-0 right-0 py-2">
-      <div className=" flex gap-12">
+    <div className="sm:w-[420px] md:w-[640px] lg:w-[768px] xl:w-[1024px] m-auto flex justify-center bg-[#fff]  rounded-t-xl fixed bottom-0 left-0 right-0 py-2">
+      <div className=" flex w-full justify-around">
         <span>
           <Image
             onClick={() => handleNavigation("/home")}
