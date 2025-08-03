@@ -4,7 +4,7 @@ import search from "../../../public/search.svg";
 
 function SearchBar() {
   return (
-    <div className="bg-[#FAFAFA] m-auto w-12/13 flex justify-center rounded-sm">
+    <div className="bg-[#FAFAFA] h-8 m-auto w-12/13 flex items-center justify-center rounded-sm">
         <Image
             className="w-6 h-6 cursor-pointer"
             src={search}
