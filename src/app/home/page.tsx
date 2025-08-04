@@ -1,3 +1,4 @@
+import FiltersBar from "@/components/home/FiltersBar";
 import HomeHeader from "@/components/home/HomeHeader";
 import TopBrands from "@/components/home/TopBrands";
 import SearchBar from "@/components/search-bar/SearchBar";
@@ -8,6 +9,7 @@ function page() {
       <HomeHeader />
       <SearchBar />
       <TopBrands />
+      <FiltersBar />
     </div>
   );
 }

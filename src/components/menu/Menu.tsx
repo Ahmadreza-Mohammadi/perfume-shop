@@ -23,46 +23,51 @@ function Menu() {
   return (
     <div className="sm:w-[420px] md:w-[640px] lg:w-[768px] xl:w-[1024px] m-auto flex justify-center bg-[#fff]  rounded-t-xl fixed bottom-0 left-0 right-0 py-2">
       <div className=" flex w-full justify-around">
-        <span>
+        <div className="flex flex-col items-center gap-1">
           <Image
             onClick={() => handleNavigation("/home")}
             className="w-6 h-6 cursor-pointer"
             src={pathname === "/home" ? homeBlack : homeWhite}
             alt="home"
           />
-        </span>
-        <span>
+          <span className="text-sm font-semibold">خانه</span>
+        </div>
+        <div className="flex flex-col items-center gap-1">
           <Image
             onClick={() => handleNavigation("/cart")}
             className="w-6 h-6 cursor-pointer"
             src={pathname === "/cart" ? cartBlack : cartWhite}
             alt="cart"
           />
-        </span>
-        <span>
+          <span className="text-sm font-semibold">سبد خرید</span>
+        </div>
+        <div className="flex flex-col items-center gap-1">
           <Image
             onClick={() => handleNavigation("/orders")}
             className="w-6 h-6 cursor-pointer"
             src={pathname === "/orders" ? ordersBlack : ordersWhite}
             alt="orders"
           />
-        </span>
-        <span>
+          <span className="text-sm font-semibold">سفارش ها</span>
+        </div>
+        <div className="flex flex-col items-center gap-1">
           <Image
             onClick={() => handleNavigation("/wallet")}
             className="w-6 h-6 cursor-pointer"
             src={pathname === "/wallet" ? walletBlack : walletWhite}
             alt="wallet"
           />
-        </span>
-        <span>
+          <span className="text-sm font-semibold">کیف پول</span>
+        </div>
+        <div className="flex flex-col items-center gap-1">
           <Image
             onClick={() => handleNavigation("/profile")}
             className="w-6 h-6 cursor-pointer"
             src={pathname === "/profile" ? profileBlack : profileWhite}
             alt="profile"
           />
-        </span>
+          <span className="text-sm font-semibold">پروفایل</span>
+        </div>
       </div>
     </div>
   );
