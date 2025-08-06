@@ -1,7 +1,7 @@
 function FiltersBar() {
   return (
     <div className="flex flex-col gap-4">
-      <div className="flex justify-between px-6 font-semibold text-sm">
+      <div className="flex justify-between px-6  sm:text-lg lg:text-xl">
         <span>بیشترین بازدید</span>
         <span>مشاهده همه</span>
       </div>
