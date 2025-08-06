@@ -1,5 +1,6 @@
 import FiltersBar from "@/components/home/FiltersBar";
 import HomeHeader from "@/components/home/HomeHeader";
+import RandomProducts from "@/components/home/RandomProducts";
 import TopBrands from "@/components/home/TopBrands";
 import SearchBar from "@/components/search-bar/SearchBar";
 
@@ -10,6 +11,7 @@ function page() {
       <SearchBar />
       <TopBrands />
       <FiltersBar />
+      <RandomProducts />
     </div>
   );
 }
