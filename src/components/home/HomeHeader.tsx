@@ -1,25 +1,30 @@
 import Image from "next/image";
-import favoriteIcon from "../../../public/heart.svg";
 import bellIcon from "../../../public/bell.svg";
-import ThemeToggle from "../theme/ThemeToggle";
+import profile from "../../../public/profile.svg";
 
 function HomeHeader() {
   return (
-    <div className="flex justify-between p-2">
-      <div>left side</div>
+    <div className="flex justify-between items-center p-2 bg-[#fff] rounded-b-xl">
       <div className="flex gap-3">
-        <Image
-          src={favoriteIcon}
-          className="w-6 h-6 cursor-pointer"
-          alt="favorites"
-        />
-
+        {/* <ThemeToggle /> */}
         <Image
           src={bellIcon}
           className="w-6 h-6 cursor-pointer"
-          alt="favorites"
+          alt="notifications"
         />
-        <ThemeToggle />
+      </div>
+      <div className="flex items-center gap-4">
+        <div className="flex flex-col">
+          <span>صبح بخیر</span>
+          <span className="font-semibold">علیرضا سعیدی</span>
+        </div>
+        <a href="/profile">
+          <Image
+            src={profile}
+            className="w-10 h-10 rounded-full cursor-pointer"
+            alt="profile"
+          />
+        </a>
       </div>
     </div>
   );
