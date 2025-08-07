@@ -44,10 +44,10 @@ function RandomProducts() {
                   {perfume.brand}
                 </p>
                 <div className="flex items-center justify-between mt-1">
-                  <span className="text-xs text-gray-600 bg-gray-100 px-2 py-1 rounded-full">
+                  <span className="text-xs text-gray-600 bg-gray-100 px-2 py-1 rounded-full text-center">
                     حجم: {digitsEnToFa(perfume.volume)}ml
                   </span>
-                  <span className="text-xs text-gray-600 bg-gray-100 px-2 py-1 rounded-full capitalize">
+                  <span className="text-xs text-gray-600 bg-gray-100 px-2 py-1 rounded-full capitalize text-center">
                     {perfume.perfumeType}
                   </span>
                 </div>
