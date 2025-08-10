@@ -1,6 +1,6 @@
 "use client";
 
-import backIcon from "../../../public/arrow-left-short.svg";
+import BackIcon from "@/components/shared/BackIcon";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -8,16 +8,7 @@ function LoginPage() {
   return (
     <div className="min-h-screen bg-[#FAFAFA]">
       <div className="m-auto sm:w-[420px] md:w-[640px] lg:w-[768px] xl:w-[1024px] flex flex-col min-h-screen">
-        {/* Header with back button */}
-        <div className="w-full flex justify-between items-center p-4 bg-[#fff] rounded-b-xl">
-          <Link
-            href="/"
-            className="flex items-center gap-2 text-gray-600 hover:text-gray-800 transition-colors duration-200"
-          >
-            <Image src={backIcon} alt="بازگشت" className="w-6 h-6" />
-            <span className="text-sm font-medium">بازگشت به خانه</span>
-          </Link>
-        </div>
+      <BackIcon />
 
         {/* Main content */}
         <div className="flex-1 flex items-center justify-center px-4 py-8">

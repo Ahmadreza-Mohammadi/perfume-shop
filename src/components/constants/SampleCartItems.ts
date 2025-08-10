@@ -1,0 +1,32 @@
+export const sampleCartItems = [
+    {
+      id: 1,
+      name: "Acqua di Gio",
+      brand: "Giorgio Armani",
+      price: 2500000,
+      volume: 100,
+      perfumeType: "Eau de Toilette",
+      gender: "male",
+      quantity: 2,
+    },
+    {
+      id: 2,
+      name: "Chanel N°5",
+      brand: "Chanel",
+      price: 3200000,
+      volume: 50,
+      perfumeType: "Eau de Parfum",
+      gender: "female",
+      quantity: 1,
+    },
+    {
+      id: 3,
+      name: "Bleu de Chanel",
+      brand: "Chanel",
+      price: 2800000,
+      volume: 100,
+      perfumeType: "Eau de Parfum",
+      gender: "male",
+      quantity: 3,
+    },
+  ];
