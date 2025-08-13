@@ -4,6 +4,6 @@ import Menu from "./Menu";
 
 export default function MenuWrapper() {
   const pathname = usePathname();
-  if (pathname === "/login") return null;
+  if (pathname === "/login" || pathname === "/register") return null;
   return <Menu />;
 }
