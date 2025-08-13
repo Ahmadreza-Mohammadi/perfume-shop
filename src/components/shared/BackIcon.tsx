@@ -4,7 +4,7 @@ import backIcon from "../../../public/right-arrow.svg";
 
 function BackIcon() {
   return (
-    <div className="w-full flex justify-between items-center p-4 bg-[#fff] rounded-b-xl">
+    <div className="flex justify-between items-center p-4 bg-[#fff] rounded-b-xl">
       <Link
         href="/"
         className="flex items-center gap-2 text-gray-600 hover:text-gray-800 transition-colors duration-200"
