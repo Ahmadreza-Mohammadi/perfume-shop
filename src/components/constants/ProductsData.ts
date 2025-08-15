@@ -13,7 +13,7 @@ export const perfumes = [
     sillage: "medium",
     id: 1,
     price: 100000,
-    available: false,
+    available: true,
     discount: 0,
   },
   {
