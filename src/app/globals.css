@@ -37,6 +37,164 @@
   scrollbar-color: #343a40 #f1f1f1;
 }
 
+/* TopBrands Component Styles */
+.top-brands-container {
+  width: 100%;
+  height: 200px;
+  position: relative;
+  overflow: hidden;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 20px;
+  margin: 20px 0;
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.08);
+}
+
+.brands-gallery {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  padding: 20px;
+  gap: 30px;
+  user-select: none;
+  transition: transform 0.1s ease-out;
+  will-change: transform;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.brands-gallery::-webkit-scrollbar {
+  display: none;
+}
+
+.brands-gallery.grabbing {
+  cursor: grabbing;
+}
+
+.brands-gallery:not(.grabbing) {
+  cursor: grab;
+}
+
+.brand-item {
+  flex-shrink: 0;
+  transition: all 0.3s ease-out;
+  animation: float 3s ease-in-out infinite;
+}
+
+.brand-item:hover {
+  transform: scale(1.1) translateY(-5px);
+  animation-play-state: paused;
+}
+
+.brand-image-container {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  overflow: hidden;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease-out;
+  background: #fff;
+  border: 1px solid #f3f4f6;
+}
+
+.brand-image-container:hover {
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
+  transform: scale(1.05);
+}
+
+.brand-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: all 0.3s ease-out;
+}
+
+.brand-overlay {
+  position: absolute;
+  bottom: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(52, 58, 64, 0.9);
+  color: white;
+  padding: 8px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+  opacity: 0;
+  transition: all 0.3s ease-out;
+  backdrop-filter: blur(10px);
+}
+
+.brand-item:hover .brand-overlay {
+  opacity: 1;
+  bottom: -50px;
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.brands-gallery:active {
+  cursor: grabbing;
+}
+
+.brand-item:focus {
+  outline: 2px solid #343a40;
+  outline-offset: 2px;
+}
+
+/* TopBrands Responsive Design */
+@media (max-width: 768px) {
+  .top-brands-container {
+    height: 150px;
+    margin: 15px 0;
+  }
+
+  .brands-gallery {
+    padding: 15px;
+    gap: 20px;
+  }
+
+  .brand-image-container {
+    width: 60px;
+    height: 60px;
+  }
+
+  .brand-overlay {
+    font-size: 10px;
+    padding: 6px 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .top-brands-container {
+    height: 120px;
+    margin: 10px 0;
+  }
+
+  .brands-gallery {
+    padding: 10px;
+    gap: 15px;
+  }
+
+  .brand-image-container {
+    width: 50px;
+    height: 50px;
+  }
+}
+
 /* Navigation Menu Animations */
 @keyframes bounce-once {
   0%,
