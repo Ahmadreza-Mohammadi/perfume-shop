@@ -6,60 +6,74 @@ import { digitsEnToFa, formatPrice } from "../utils/helper";
 function RandomProducts() {
   return (
     <>
-      <div className="w-full py-8 px-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+      {/* Product Grid */}
+      <div className="w-full py-8 px-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
         {perfumes.map((perfume) => (
           <div
             key={perfume.id}
-            className="bg-white border border-gray-100 rounded-3xl shadow-lg hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 overflow-hidden flex flex-col group relative"
+            className="group bg-white border border-gray-200 rounded-2xl shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 ease-out overflow-hidden flex flex-col relative"
           >
-            {/* Image */}
-            <div className="w-full h-72 relative bg-gray-50 flex items-center justify-center">
+            {/* Product Image Container */}
+            <div className="w-full h-64 relative bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center overflow-hidden">
               <Image
                 src={Img}
                 alt={perfume.name}
                 layout="fill"
                 objectFit="cover"
-                className="rounded-t-3xl group-hover:scale-105 transition-transform duration-300"
+                className="group-hover:scale-110 transition-transform duration-500 ease-out"
                 style={{ objectPosition: "center" }}
               />
+
+              {/* Overlay for unavailable products */}
               {!perfume.available && (
-                <div className="absolute inset-0 bg-white bg-opacity-70 flex items-center justify-center z-10">
-                  <span className="text-lg font-bold text-red-500">
+                <div className="absolute inset-0 bg-white/80 backdrop-blur-sm flex items-center justify-center z-10">
+                  <span className="text-lg font-bold text-red-500 bg-white px-4 py-2 rounded-full shadow-lg">
                     ناموجود
                   </span>
                 </div>
               )}
             </div>
 
-            {/* Content */}
-            <div className="p-6 flex flex-col justify-between flex-grow gap-3">
-              <div className="flex flex-col gap-2 it">
-                <h2
-                  className="text-xl font-bold text-gray-900 capitalize mb-1 truncate text-center"
-                  title={perfume.name}
-                >
-                  {perfume.name}
-                </h2>
-                <p className="text-sm text-gray-500 capitalize mb-1 text-center">
-                  {perfume.brand}
-                </p>
-                <div className="flex items-center justify-between mt-1">
-                  <span className="text-xs text-gray-600 bg-gray-100 px-2 py-1 rounded-full text-center">
+            {/* Product Content */}
+            <div className="p-5 flex flex-col justify-between flex-grow gap-4">
+              {/* Product Info */}
+              <div className="flex flex-col gap-3">
+                {/* Product Name and Brand */}
+                <div className="text-center">
+                  <h2
+                    className="text-lg font-bold text-[#343A40] capitalize mb-1 truncate"
+                    title={perfume.name}
+                  >
+                    {perfume.name}
+                  </h2>
+                  <p className="text-sm text-gray-600 capitalize">
+                    {perfume.brand}
+                  </p>
+                </div>
+
+                {/* Product Tags */}
+                <div className="flex flex-wrap gap-2 justify-center">
+                  {/* Volume Tag */}
+                  <span className="text-xs font-medium text-[#343A40] bg-gray-100 px-3 py-1.5 rounded-full">
                     حجم: {digitsEnToFa(perfume.volume)}ml
                   </span>
-                  <span className="text-xs text-gray-600 bg-gray-100 px-2 py-1 rounded-full capitalize text-center">
+
+                  {/* Perfume Type Tag */}
+                  <span className="text-xs font-medium text-[#343A40] bg-gray-100 px-3 py-1.5 rounded-full capitalize">
                     {perfume.perfumeType}
                   </span>
                 </div>
-                <div className="flex justify-between">
-                  {/* Gender */}
+
+                {/* Gender and Availability Tags */}
+                <div className="flex justify-center gap-2">
+                  {/* Gender Tag */}
                   <span
-                    className={`mt-2 inline-block w-fit text-xs font-semibold px-3 py-1 rounded-full ${
+                    className={`text-xs font-semibold px-3 py-1.5 rounded-full ${
                       perfume.gender === "unisex"
-                        ? "bg-blue-100 text-blue-600"
+                        ? "bg-blue-50 text-blue-700 border border-blue-200"
                         : perfume.gender === "male"
-                        ? "bg-cyan-100 text-cyan-700"
-                        : "bg-pink-100 text-pink-600"
+                        ? "bg-cyan-50 text-cyan-700 border border-cyan-200"
+                        : "bg-pink-50 text-pink-700 border border-pink-200"
                     }`}
                   >
                     {perfume.gender === "unisex"
@@ -68,27 +82,32 @@ function RandomProducts() {
                       ? "مردانه"
                       : "زنانه"}
                   </span>
-                  {/* Availability */}
+
+                  {/* Availability Tag */}
                   <span
-                    className={`mt-2 inline-block w-fit text-xs font-bold px-3 py-1 rounded-full ${
+                    className={`text-xs font-semibold px-3 py-1.5 rounded-full ${
                       perfume.available
-                        ? "bg-green-100 text-green-700 border border-green-200"
-                        : "bg-red-100 text-red-600 border border-red-200"
+                        ? "bg-green-50 text-green-700 border border-green-200"
+                        : "bg-red-50 text-red-700 border border-red-200"
                     }`}
                   >
                     {perfume.available ? "موجود" : "ناموجود"}
                   </span>
                 </div>
               </div>
-              {/* Price */}
-              <div className="mt-2 flex items-center justify-between">
-                <p className="text-lg font-extrabold text-gray-900">
-                  {formatPrice(perfume.price)}{" "}
-                  <span className="text-base font-medium text-gray-500">
-                    تومان
-                  </span>
-                </p>
-                <button className="bg-gray-900 text-white text-xs font-semibold px-4 py-2 cursor-pointer rounded-full shadow hover:bg-gray-700 transition-colors duration-200 focus:outline-none">
+
+              {/* Price and CTA */}
+              <div className="flex items-center justify-between pt-2 border-t border-gray-100">
+                {/* Price */}
+                <div className="flex flex-col">
+                  <p className="text-lg font-bold text-[#343A40]">
+                    {formatPrice(perfume.price)}
+                  </p>
+                  <span className="text-sm text-gray-500">تومان</span>
+                </div>
+
+                {/* View Product Button */}
+                <button className="bg-gradient-to-r from-[#343A40] to-[#495057] text-white text-xs font-semibold px-4 py-2.5 rounded-full shadow-md hover:shadow-lg hover:from-[#495057] hover:to-[#343A40] transition-all duration-300 ease-out focus:outline-none focus:ring-2 focus:ring-[#343A40] focus:ring-opacity-20 transform hover:scale-105 active:scale-95">
                   مشاهده محصول
                 </button>
               </div>
@@ -96,8 +115,10 @@ function RandomProducts() {
           </div>
         ))}
       </div>
+
+      {/* View All Products Button */}
       <div className="pb-24 w-full flex justify-center items-center">
-        <button className="bg-gradient-to-r from-gray-900 to-gray-700 text-white cursor-pointer text-base font-bold px-8 py-3 rounded-full shadow-lg hover:from-gray-700 hover:to-gray-900 hover:shadow-xl transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2">
+        <button className="bg-gradient-to-r from-[#343A40] to-[#495057] text-white text-base font-bold px-8 py-4 rounded-full shadow-lg hover:shadow-xl hover:from-[#495057] hover:to-[#343A40] transition-all duration-300 ease-out focus:outline-none focus:ring-2 focus:ring-[#343A40] focus:ring-opacity-20 transform hover:scale-105 active:scale-95">
           مشاهده محصولات
         </button>
       </div>
