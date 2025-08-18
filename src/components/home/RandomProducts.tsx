@@ -107,7 +107,7 @@ function RandomProducts() {
                 </div>
 
                 {/* View Product Button */}
-                <button className="bg-gradient-to-r from-[#343A40] to-[#495057] text-white text-xs font-semibold px-4 py-2.5 rounded-full shadow-md hover:shadow-lg hover:from-[#495057] hover:to-[#343A40] transition-all duration-300 ease-out focus:outline-none focus:ring-2 focus:ring-[#343A40] focus:ring-opacity-20 transform hover:scale-105 active:scale-95">
+                <button className="bg-gradient-to-r from-[#343A40] to-[#495057] text-white text-xs font-semibold px-4 py-2.5 rounded-full shadow-md hover:shadow-lg hover:from-[#495057] hover:to-[#343A40] transition-all duration-300 ease-out focus:outline-none focus:ring-2 focus:ring-[#343A40] focus:ring-opacity-20 transform hover:scale-105 active:scale-95 cursor-pointer">
                   مشاهده محصول
                 </button>
               </div>
@@ -117,8 +117,8 @@ function RandomProducts() {
       </div>
 
       {/* View All Products Button */}
-      <div className="pb-24 w-full flex justify-center items-center">
-        <button className="bg-gradient-to-r from-[#343A40] to-[#495057] text-white text-base font-bold px-8 py-4 rounded-full shadow-lg hover:shadow-xl hover:from-[#495057] hover:to-[#343A40] transition-all duration-300 ease-out focus:outline-none focus:ring-2 focus:ring-[#343A40] focus:ring-opacity-20 transform hover:scale-105 active:scale-95">
+      <div className="pb-24 w-full flex justify-center items-center ">
+        <button className="bg-gradient-to-r from-[#343A40] to-[#495057] text-white text-base font-bold px-8 py-4 rounded-full shadow-lg hover:shadow-xl hover:from-[#495057] hover:to-[#343A40] transition-all duration-300 ease-out focus:outline-none focus:ring-2 focus:ring-[#343A40] focus:ring-opacity-20 transform hover:scale-105 active:scale-95 cursor-pointer">
           مشاهده محصولات
         </button>
       </div>

@@ -1,7 +1,6 @@
 "use client";
 
 import BackIcon from "@/components/shared/BackIcon";
-import Image from "next/image";
 import Link from "next/link";
 
 function RegisterPage() {

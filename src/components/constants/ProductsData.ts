@@ -117,7 +117,7 @@ export const perfumes = [
     price: 100000,
     available: true,
     discount: 0,
-  },
+  },  
   {
     name: "fuckin fabulous",
     brand: "tomford",
