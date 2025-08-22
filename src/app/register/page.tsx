@@ -1,14 +1,13 @@
 "use client";
 
 import BackIcon from "@/components/shared/BackIcon";
-import Image from "next/image";
 import Link from "next/link";
 
-function LoginPage() {
+function RegisterPage() {
   return (
     <div className="min-h-screen bg-[#FAFAFA]">
       <div className="m-auto sm:w-[420px] md:w-[640px] lg:w-[768px] xl:w-[1024px] flex flex-col min-h-screen">
-      <BackIcon />
+        <BackIcon />
 
         {/* Main content */}
         <div className="flex-1 flex items-center justify-center px-4 py-8">
@@ -20,17 +19,35 @@ function LoginPage() {
                   <span className="text-gray-800 text-2xl font-bold">عطر</span>
                 </div>
               </div>
-              <h1 className="text-2xl font-bold text-gray-800 mb-2">
-                خوش آمدید
-              </h1>
+              <h1 className="text-2xl font-bold text-gray-800 mb-2">ثبت نام</h1>
               <p className="text-gray-600 text-sm">
-                برای ادامه وارد حساب کاربری خود شوید
+                حساب کاربری جدید ایجاد کنید
               </p>
             </div>
 
-            {/* Login form */}
+            {/* Register form */}
             <div className="bg-[#fff] rounded-xl p-6 border border-gray-200">
               <form className="space-y-4">
+                {/* Full Name field */}
+                <div>
+                  <label
+                    htmlFor="fullName"
+                    className="block text-sm font-medium text-gray-700 mb-2"
+                  >
+                    نام و نام خانوادگی
+                  </label>
+                  <div className="relative">
+                    <input
+                      type="text"
+                      id="fullName"
+                      name="fullName"
+                      placeholder="نام و نام خانوادگی خود را وارد کنید"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-sm focus:outline-none focus:border-gray-400 bg-[#FAFAFA] text-right"
+                      required
+                    />
+                  </div>
+                </div>
+
                 {/* Email field */}
                 <div>
                   <label
@@ -45,6 +62,26 @@ function LoginPage() {
                       id="email"
                       name="email"
                       placeholder="ایمیل خود را وارد کنید"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-sm focus:outline-none focus:border-gray-400 bg-[#FAFAFA] text-right"
+                      required
+                    />
+                  </div>
+                </div>
+
+                {/* Phone field */}
+                <div>
+                  <label
+                    htmlFor="phone"
+                    className="block text-sm font-medium text-gray-700 mb-2"
+                  >
+                    شماره تلفن
+                  </label>
+                  <div className="relative">
+                    <input
+                      type="tel"
+                      id="phone"
+                      name="phone"
+                      placeholder="شماره تلفن خود را وارد کنید"
                       className="w-full px-4 py-3 border border-gray-300 rounded-sm focus:outline-none focus:border-gray-400 bg-[#FAFAFA] text-right"
                       required
                     />
@@ -71,36 +108,56 @@ function LoginPage() {
                   </div>
                 </div>
 
-                {/* Remember me and forgot password */}
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center">
-                    <input
-                      id="remember-me"
-                      name="remember-me"
-                      type="checkbox"
-                      className="h-4 w-4 text-gray-600 focus:ring-gray-500 border-gray-300 rounded"
-                    />
-                    <label
-                      htmlFor="remember-me"
-                      className="mr-2 block text-sm text-gray-700"
-                    >
-                      مرا به خاطر بسپار
-                    </label>
-                  </div>
-                  <Link
-                    href="/forgot-password"
-                    className="text-sm text-gray-600 hover:text-gray-800 transition-colors duration-200"
+                {/* Confirm Password field */}
+                <div>
+                  <label
+                    htmlFor="confirmPassword"
+                    className="block text-sm font-medium text-gray-700 mb-2"
                   >
-                    فراموشی رمز؟
-                  </Link>
+                    تکرار رمز عبور
+                  </label>
+                  <div className="relative">
+                    <input
+                      type="password"
+                      id="confirmPassword"
+                      name="confirmPassword"
+                      placeholder="رمز عبور خود را دوباره وارد کنید"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-sm focus:outline-none focus:border-gray-400 bg-[#FAFAFA] text-right"
+                      required
+                    />
+                  </div>
                 </div>
 
-                {/* Sign in button */}
+                {/* Terms and conditions */}
+                <div className="flex items-center">
+                  <input
+                    id="terms"
+                    name="terms"
+                    type="checkbox"
+                    className="h-4 w-4 text-gray-600 focus:ring-gray-500 border-gray-300 rounded"
+                    required
+                  />
+                  <label
+                    htmlFor="terms"
+                    className="mr-2 block text-sm text-gray-700"
+                  >
+                    با{" "}
+                    <Link
+                      href="/terms"
+                      className="text-gray-800 hover:text-gray-600 transition-colors duration-200"
+                    >
+                      شرایط و قوانین
+                    </Link>{" "}
+                    موافقت می‌کنم
+                  </label>
+                </div>
+
+                {/* Sign up button */}
                 <button
                   type="submit"
                   className="w-full bg-gray-800 text-white cursor-pointer py-3 px-4 rounded-sm font-medium hover:bg-gray-700 focus:outline-none transition-colors duration-200 mt-6"
                 >
-                  ورود
+                  ثبت نام
                 </button>
               </form>
 
@@ -119,7 +176,7 @@ function LoginPage() {
               </div>
 
               {/* Social login buttons */}
-              <div className="mt-6 grid grid-cols-2 gap-3 ">
+              <div className="mt-6 grid grid-cols-2 gap-3">
                 <button
                   type="button"
                   className="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-sm shadow-sm bg-[#fff] text-sm font-medium text-gray-500 hover:bg-[#FAFAFA] transition-colors duration-200 cursor-pointer"
@@ -159,15 +216,15 @@ function LoginPage() {
                 </button>
               </div>
 
-              {/* Sign up link */}
+              {/* Sign in link */}
               <div className="mt-6 text-center">
                 <p className="text-sm text-gray-600">
-                  حساب کاربری ندارید؟{" "}
+                  قبلاً حساب کاربری دارید؟{" "}
                   <Link
-                    href="/register"
+                    href="/login"
                     className="font-medium text-gray-800 hover:text-gray-600 transition-colors duration-200"
                   >
-                    ثبت نام کنید
+                    وارد شوید
                   </Link>
                 </p>
               </div>
@@ -179,4 +236,4 @@ function LoginPage() {
   );
 }
 
-export default LoginPage;
+export default RegisterPage;

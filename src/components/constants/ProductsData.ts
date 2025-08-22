@@ -13,7 +13,7 @@ export const perfumes = [
     sillage: "medium",
     id: 1,
     price: 100000,
-    available: false,
+    available: true,
     discount: 0,
   },
   {
@@ -117,7 +117,7 @@ export const perfumes = [
     price: 100000,
     available: true,
     discount: 0,
-  },
+  },  
   {
     name: "fuckin fabulous",
     brand: "tomford",
