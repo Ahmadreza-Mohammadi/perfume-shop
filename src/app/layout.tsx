@@ -15,7 +15,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     <html dir="rtl" lang="fa" suppressHydrationWarning>
       <body className={`${vazirMatn.className} ${inter.className}`}>
         <ThemeProvider>
-          {children}
+          <div className="pb-20 md:pb-24">{children}</div>
           <MenuWrapper />
         </ThemeProvider>
       </body>

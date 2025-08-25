@@ -7,7 +7,11 @@ import MobileFilterWrapper from "./MobileFilterWrapper";
 
 export default async function Products() {
   // اولین ۱۲ محصول + گرفتن تعداد کل
-  const { data: perfumes, error, count } = await supabase
+  const {
+    data: perfumes,
+    error,
+    count,
+  } = await supabase
     .from("products")
     .select("*", { count: "exact" })
     .range(0, 11);
@@ -48,7 +52,10 @@ export default async function Products() {
         <section className="w-full lg:flex-1">
           <MobileFilterWrapper />
 
-          <ProductList initialPerfumes={perfumes || []} totalCount={count || 0} />
+          <ProductList
+            initialPerfumes={perfumes || []}
+            totalCount={count || 0}
+          />
         </section>
       </main>
 

@@ -2,7 +2,7 @@ import { genders } from "../constants/const";
 
 function FilterSidebar() {
   return (
-    <aside className="hidden lg:block w-72 flex-shrink-0 lg:pl-6">
+    <aside className="hidden lg:block w-72 flex-shrink-0 lg:pl-6 sticky top-[72px]">
       <div className="sticky top-[72px] space-y-4">
         <div className="bg-white border border-gray-200 rounded-2xl shadow-sm p-4">
           <h3 className="font-bold text-[#343A40] mb-3">برند</h3>

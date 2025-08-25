@@ -66,7 +66,7 @@ function Menu() {
   };
 
   return (
-    <div className="sm:w-[420px] md:w-[640px] lg:w-[768px] xl:w-[1024px] m-auto flex justify-center bg-[#fff] rounded-t-xl fixed bottom-0 left-0 right-0 py-2 shadow-lg border-t border-gray-100">
+    <div className="sm:w-[420px] md:w-[640px] lg:w-[768px] xl:w-[1024px] m-auto flex justify-center bg-[#fff] rounded-t-xl py-2 shadow-lg border-t border-gray-100">
       <div className="flex w-full justify-around">
         {menuItems.map((item) => {
           const isActive = pathname === item.path;
