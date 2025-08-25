@@ -12,6 +12,7 @@ import productsWhite from "../../../public/shop-white.svg";
 import profileBlack from "../../../public/profile-black.svg";
 import profileWhite from "../../../public/profile-white.svg";
 import { useRouter, usePathname } from "next/navigation";
+import SetDataOnServer from "../utils/SetDataOnServer";
 
 // Menu item configuration for easy customization
 const menuItems = [

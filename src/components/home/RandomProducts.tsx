@@ -8,7 +8,8 @@ function RandomProducts() {
     <>
       {/* Product Grid */}
       <div className="w-full py-8 px-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-        {perfumes.map((perfume) => (
+        {perfumes.map((perfume:any) => (
+          
           <div
             key={perfume.id}
             className="group bg-white border border-gray-200 rounded-2xl shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 ease-out overflow-hidden flex flex-col relative"
