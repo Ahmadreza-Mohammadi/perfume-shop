@@ -1,23 +1,29 @@
 "use client";
 
-import { useState } from "react";
-import ProductCard from "./ProductCard";
+import { useEffect, useRef, useState } from "react";
 import { supabase } from "../../../lib/supabaseClient";
+import ProductCard, { Product } from "./ProductCard";
 
-// اضافه کردن totalCount به تایپ props
+type ProductWithId = Product & { id?: string | number };
+
 type ProductListProps = {
-  initialPerfumes: any[];
+  initialPerfumes: ProductWithId[];
   totalCount: number;
 };
 
-export default function ProductList({ initialPerfumes, totalCount }: ProductListProps) {
-  const [perfumes, setPerfumes] = useState(initialPerfumes);
-  const [page, setPage] = useState(1);
-  const [loading, setLoading] = useState(false);
+export default function ProductList({
+  initialPerfumes,
+  totalCount,
+}: ProductListProps) {
+  const [perfumes, setPerfumes] = useState<ProductWithId[]>(initialPerfumes);
+  const [page, setPage] = useState<number>(1);
+  const [loading, setLoading] = useState<boolean>(false);
+  const loadMoreRef = useRef<HTMLDivElement | null>(null);
 
   const limit = 12;
 
   const fetchMore = async () => {
+    if (loading) return;
     setLoading(true);
 
     const from = page * limit;
@@ -29,8 +35,11 @@ export default function ProductList({ initialPerfumes, totalCount }: ProductList
       .range(from, to);
 
     if (!error && data) {
-      setPerfumes((prev) => [...prev, ...data]);
-      setPage((prev) => prev + 1);
+      setPerfumes((prev: ProductWithId[]) => [
+        ...prev,
+        ...(data as ProductWithId[]),
+      ]);
+      setPage((prev: number) => prev + 1);
     }
 
     setLoading(false);
@@ -38,23 +47,48 @@ export default function ProductList({ initialPerfumes, totalCount }: ProductList
 
   const allLoaded = perfumes.length >= totalCount;
 
+  useEffect(() => {
+    if (allLoaded) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          fetchMore();
+        }
+      },
+      { threshold: 0.5 }
+    );
+
+    if (loadMoreRef.current) observer.observe(loadMoreRef.current);
+
+    return () => {
+      if (loadMoreRef.current) observer.unobserve(loadMoreRef.current);
+    };
+  }, [allLoaded, page]);
+
   return (
     <section className="w-full">
       <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-6">
-        {perfumes.map((p) => (
-          <ProductCard key={p.id} product={p} />
+        {perfumes.map((p: ProductWithId, idx: number) => (
+          <ProductCard
+            key={(p.id as string | number) ?? `${p.name}-${idx}`}
+            product={p}
+          />
         ))}
       </div>
 
       {!allLoaded && (
-        <div className="flex justify-center items-center mt-8">
-          <button
-            onClick={fetchMore}
-            disabled={loading}
-            className="bg-gradient-to-r from-[#343A40] to-[#495057] text-white text-sm font-bold px-6 py-3 rounded-full shadow-lg disabled:opacity-50"
-          >
-            {loading ? "در حال بارگذاری..." : "مشاهده بیشتر"}
-          </button>
+        <div
+          ref={loadMoreRef}
+          className="flex justify-center items-center mt-8"
+        >
+          {loading && (
+            <div className="flex flex-row gap-2 py-16">
+              <div className="w-4 h-4 rounded-full bg-gray-700 animate-bounce [animation-delay:.7s]"></div>
+              <div className="w-4 h-4 rounded-full bg-gray-700 animate-bounce [animation-delay:.3s]"></div>
+              <div className="w-4 h-4 rounded-full bg-gray-700 animate-bounce [animation-delay:.7s]"></div>
+            </div>
+          )}
         </div>
       )}
     </section>
