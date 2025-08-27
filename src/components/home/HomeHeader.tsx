@@ -4,13 +4,10 @@ import profile from "../../../public/profile.svg";
 
 function HomeHeader() {
   return (
-    <header className="sticky top-0 z-50 w-full">
-      <div className="relative">
-        {/* Background matching other components */}
-        <div className="absolute inset-0 bg-[#fff] border-b border-gray-200 shadow-sm"></div>
-
+    <header className="w-full sticky top-0 z-30 bg-white/80 backdrop-blur border-b border-gray-200">
+      <div className="max-w-7xl mx-auto px-4 py-3">
         {/* Main header content */}
-        <div className="relative flex justify-between items-center px-4 py-3 sm:px-6 sm:py-4">
+        <div className="flex justify-between items-center gap-3 sm:gap-4">
           {/* right side - Notification bell */}
           <div className="flex items-center ">
             <button
@@ -34,7 +31,7 @@ function HomeHeader() {
               <span className="text-sm sm:text-base text-gray-600 font-medium leading-tight">
                 صبح بخیر
               </span>
-              <span className="text-base sm:text-lg font-bold text-[#343A40] leading-tight">
+              <span className="text-base sm:text-lg font-extrabold text-[#343A40] leading-tight">
                 علیرضا سعیدی
               </span>
             </div>
