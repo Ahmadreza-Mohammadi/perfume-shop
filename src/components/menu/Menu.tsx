@@ -65,79 +65,83 @@ function Menu() {
   };
 
   return (
-    <div className="sm:w-[420px] md:w-[640px] lg:w-[768px] xl:w-[1024px] m-auto flex justify-center bg-[#fff] rounded-t-xl fixed bottom-0 left-0 right-0 py-2 shadow-lg border-t border-gray-100">
-      <div className="flex w-full justify-around">
-        {menuItems.map((item) => {
-          const isActive = pathname === item.path;
+    <div className="w-full sticky bottom-0 z-30 backdrop-blur border-t border-gray-200">
+      <div className="max-w-7xl mx-auto px-4 py-1">
+        <div className="sm:w-[420px] md:w-[640px] lg:w-[768px] xl:w-[1024px] m-auto flex justify-center rounded-t-xl ">
+          <div className="flex w-full justify-around">
+            {menuItems.map((item) => {
+              const isActive = pathname === item.path;
 
-          return (
-            <div
-              key={item.path}
-              className="flex flex-col items-center gap-1 group relative"
-            >
-              {/* Animated background indicator for active state */}
-              {isActive && (
-                <div className="absolute -top-2 w-12 h-12 bg-gray-50 rounded-full opacity-80 animate-pulse" />
-              )}
+              return (
+                <div
+                  key={item.path}
+                  className="flex flex-col items-center gap-1 group relative"
+                >
+                  {/* Animated background indicator for active state */}
+                  {isActive && (
+                    <div className="absolute -top-2 w-12 h-12 bg-gray-50 rounded-full opacity-80 animate-pulse" />
+                  )}
 
-              {/* Menu item container with hover animations */}
-              <div
-                onClick={() => handleNavigation(item.path)}
-                className={`
-                  relative z-10 flex flex-col items-center gap-1 p-2 rounded-lg cursor-pointer
-                  transition-all duration-300 ease-out
-                  hover:scale-110 hover:bg-gray-50 hover:shadow-md
-                  active:scale-95 active:transition-transform active:duration-100
-                  ${
-                    isActive
-                      ? "transform scale-105"
-                      : "hover:transform hover:scale-110"
-                  }
-                `}
-              >
-                {/* Icon with smooth transition and hover effects */}
-                <div className="relative">
-                  <Image
+                  {/* Menu item container with hover animations */}
+                  <div
+                    onClick={() => handleNavigation(item.path)}
                     className={`
-                      w-6 h-6 transition-all duration-300 ease-out
+                      relative z-10 flex flex-col items-center gap-1 p-2 rounded-lg cursor-pointer
+                      transition-all duration-300 ease-out
+                      hover:scale-110 hover:bg-gray-50 hover:shadow-md
+                      active:scale-95 active:transition-transform active:duration-100
                       ${
                         isActive
-                          ? "animate-bounce-once"
-                          : "group-hover:scale-110 group-hover:rotate-3"
+                          ? "transform scale-105"
+                          : "hover:transform hover:scale-110"
                       }
                     `}
-                    src={isActive ? item.activeIcon : item.inactiveIcon}
-                    alt={item.alt}
-                  />
+                  >
+                    {/* Icon with smooth transition and hover effects */}
+                    <div className="relative">
+                      <Image
+                        className={`
+                          w-6 h-6 transition-all duration-300 ease-out
+                          ${
+                            isActive
+                              ? "animate-bounce-once"
+                              : "group-hover:scale-110 group-hover:rotate-3"
+                          }
+                        `}
+                        src={isActive ? item.activeIcon : item.inactiveIcon}
+                        alt={item.alt}
+                      />
 
-                  {/* Subtle glow effect for active state */}
-                  {isActive && (
-                    <div className="absolute inset-0 w-6 h-6 bg-[#343A40] rounded-full opacity-20 animate-ping" />
-                  )}
+                      {/* Subtle glow effect for active state */}
+                      {isActive && (
+                        <div className="absolute inset-0 w-6 h-6 bg-[#343A40] rounded-full opacity-20 animate-ping" />
+                      )}
+                    </div>
+
+                    {/* Label with smooth color transition */}
+                    <span
+                      className={`
+                        text-sm font-semibold transition-all duration-300 ease-out
+                        ${
+                          isActive
+                            ? "text-[#343A40] scale-105"
+                            : "text-gray-500 group-hover:text-[#343A40]"
+                        }
+                      `}
+                    >
+                      {item.label}
+                    </span>
+
+                    {/* Underline indicator for active state */}
+                    {isActive && (
+                      <div className="absolute -bottom-1 w-8 h-0.5 bg-[#343A40] rounded-full animate-slide-in" />
+                    )}
+                  </div>
                 </div>
-
-                {/* Label with smooth color transition */}
-                <span
-                  className={`
-                    text-sm font-semibold transition-all duration-300 ease-out
-                    ${
-                      isActive
-                        ? "text-[#343A40] scale-105"
-                        : "text-gray-500 group-hover:text-[#343A40]"
-                    }
-                  `}
-                >
-                  {item.label}
-                </span>
-
-                {/* Underline indicator for active state */}
-                {isActive && (
-                  <div className="absolute -bottom-1 w-8 h-0.5 bg-[#343A40] rounded-full animate-slide-in" />
-                )}
-              </div>
-            </div>
-          );
-        })}
+              );
+            })}
+          </div>
+        </div>
       </div>
     </div>
   );

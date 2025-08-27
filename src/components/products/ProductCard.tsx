@@ -45,7 +45,13 @@ function ProductCard({ product }: ProductCardProps) {
 
           <div className="flex flex-wrap gap-2 justify-center">
             <span className="text-xs font-medium text-[#343A40] bg-gray-100 px-3 py-1.5 rounded-full">
-              حجم: {digitsEnToFa(product.volume)}ml
+              حجم:{" "}
+              {digitsEnToFa(
+                Array.isArray(product.volume)
+                  ? product.volume[0]
+                  : product.volume
+              )}
+              ml
             </span>
             <span className="text-xs font-medium text-[#343A40] bg-gray-100 px-3 py-1.5 rounded-full capitalize">
               {product.perfumeType}
@@ -55,16 +61,16 @@ function ProductCard({ product }: ProductCardProps) {
           <div className="flex justify-center gap-2">
             <span
               className={`text-xs font-semibold px-3 py-1.5 rounded-full ${
-                product.gender === "unisex"
+                product.gender === "Unisex"
                   ? "bg-blue-50 text-blue-700 border border-blue-200"
-                  : product.gender === "male"
+                  : product.gender === "Men"
                   ? "bg-cyan-50 text-cyan-700 border border-cyan-200"
                   : "bg-pink-50 text-pink-700 border border-pink-200"
               }`}
             >
-              {product.gender === "unisex"
+              {product.gender === "Unisex"
                 ? "یونی‌سکس"
-                : product.gender === "male"
+                : product.gender === "Men"
                 ? "مردانه"
                 : "زنانه"}
             </span>
