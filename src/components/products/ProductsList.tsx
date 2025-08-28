@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { supabase } from "../../../lib/supabaseClient";
 import ProductCard, { Product } from "./ProductCard";
 
-type ProductWithId = Product & { id?: string | number };
+type ProductWithId = Product & { id: string | number };
 
 type ProductListProps = {
   initialPerfumes: ProductWithId[];
@@ -35,11 +35,14 @@ export default function ProductList({
       .range(from, to);
 
     if (!error && data) {
-      setPerfumes((prev: ProductWithId[]) => [
-        ...prev,
-        ...(data as ProductWithId[]),
-      ]);
-      setPage((prev: number) => prev + 1);
+      setPerfumes((prev) => {
+        const merged = [...prev, ...(data as ProductWithId[])];
+        const unique = merged.filter(
+          (p, idx, self) => idx === self.findIndex((x) => x.id === p.id)
+        );
+        return unique;
+      });
+      setPage((prev) => prev + 1);
     }
 
     setLoading(false);
@@ -69,11 +72,8 @@ export default function ProductList({
   return (
     <section className="w-full">
       <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-6">
-        {perfumes.map((p: ProductWithId, idx: number) => (
-          <ProductCard
-            key={(p.id as string | number) ?? `${p.name}-${idx}`}
-            product={p}
-          />
+        {perfumes.map((p, idx) => (
+          <ProductCard key={String(p.id) ?? `perfume-${idx}`} product={p} />
         ))}
       </div>
 
