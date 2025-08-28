@@ -16,6 +16,8 @@ function HomeHeader() {
             >
               <Image
                 src={bellIcon}
+                width={24}
+                height={24}
                 className="w-5 h-5 sm:w-6 sm:h-6 transition-transform duration-200 group-hover:scale-110 group-active:scale-95"
                 alt="notifications"
               />
@@ -45,6 +47,8 @@ function HomeHeader() {
               <div className="relative p-1 rounded-2xl bg-gray-50 hover:bg-gray-100 transition-all duration-300 ease-out shadow-sm hover:shadow-md border border-gray-200 hover:border-gray-300">
                 <Image
                   src={profile}
+                  width={48}
+                  height={48}
                   className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl transition-all duration-300 ease-out group-hover:scale-105 group-active:scale-95 shadow-sm"
                   alt="profile"
                 />
