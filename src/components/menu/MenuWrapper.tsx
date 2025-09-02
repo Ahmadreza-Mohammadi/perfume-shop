@@ -6,18 +6,19 @@ import Menu from "./Menu";
 export default function MenuWrapper() {
   const pathname = usePathname();
   const [isVisible, setIsVisible] = useState(false);
-
-  // Hide menu on login/register pages
-  if (pathname === "/login" || pathname === "/register") return null;
+  const hideMenu = pathname === "/login" || pathname === "/register";
 
   // Add entrance animation when component mounts
   useEffect(() => {
+    if (hideMenu) return;
     const timer = setTimeout(() => {
       setIsVisible(true);
     }, 100);
 
     return () => clearTimeout(timer);
-  }, []);
+  }, [hideMenu]);
+
+  if (hideMenu) return null;
 
   return (
     <div
