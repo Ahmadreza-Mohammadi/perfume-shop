@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { supabase } from "../../../lib/supabaseClient";
 import ProductCard, { Product } from "./ProductCard";
+import { getSupabase } from "../../../lib/supabaseClient";
 
 type ProductWithId = Product & { id: string | number };
 
@@ -15,6 +15,7 @@ export default function ProductList({
   initialPerfumes,
   totalCount,
 }: ProductListProps) {
+  const supabase = getSupabase();
   const [perfumes, setPerfumes] = useState<ProductWithId[]>(initialPerfumes);
   const [page, setPage] = useState<number>(1);
   const [loading, setLoading] = useState<boolean>(false);
@@ -32,6 +33,7 @@ export default function ProductList({
     const { data, error } = await supabase
       .from("products")
       .select("*")
+      .order("created_at", { ascending: false })
       .range(from, to);
 
     if (!error && data) {
@@ -71,7 +73,7 @@ export default function ProductList({
 
   return (
     <section className="w-full">
-      <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-3 gap-6">
         {perfumes.map((p, idx) => (
           <ProductCard key={String(p.id) ?? `perfume-${idx}`} product={p} />
         ))}
