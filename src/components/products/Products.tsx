@@ -1,12 +1,12 @@
-import { supabase } from "../../../lib/supabaseClient";
 import ProductList from "./ProductsList";
 import TopBar from "./TopBar";
 import FilterSidebar from "./FilterSidebar";
 import Footer from "./ProductsFooter";
 import MobileFilterWrapper from "./MobileFilterWrapper";
+import { getSupabase } from "../../../lib/supabaseClient";
 
 export default async function Products() {
-  // اولین ۱۲ محصول + گرفتن تعداد کل
+  const supabase = getSupabase();
   const {
     data: perfumes,
     error,

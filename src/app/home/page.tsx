@@ -7,14 +7,16 @@ import SwiperComponent from "@/components/swiper/SwiperComponent";
 
 function page() {
   return (
-    <div className="m-auto sm:w-[420px] md:w-[640px] lg:w-[768px] xl:w-[1024px] flex flex-col gap-6">
+    <>
       <HomeHeader />
-      <SwiperComponent />
-      <TopPerfumes />
-      <SearchBar />
-      <TopBrands />
-      <RandomProducts />
-    </div>
+      <div className="max-w-7xl mx-auto px-4 py-6 pb-24 flex flex-col gap-6">
+        <SwiperComponent />
+        <TopPerfumes />
+        <SearchBar />
+        <TopBrands />
+        <RandomProducts />
+      </div>
+    </>
   );
 }
 
