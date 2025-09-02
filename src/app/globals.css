@@ -339,14 +339,14 @@
 
 /* Pagination dots */
 .swiper-pagination-bullet {
-  background: #fff !important;
-  opacity: 0.5;
+  background: #9ca3af !important; /* gray-400 */
+  opacity: 0.9;
   transition: all 0.3s ease;
 }
 
 .swiper-pagination-bullet-active {
   opacity: 1 !important;
-  background: #fff !important;
+  background: #6b7280 !important; /* gray-500 */
 }
 
 /* RTL specific styles */
