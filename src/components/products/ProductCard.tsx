@@ -1,5 +1,7 @@
+"use client";
 import Link from "next/link";
 import { digitsEnToFa, formatPrice } from "../utils/helper";
+import { useRouter } from "next/navigation";
 
 export type Product =
   typeof import("../constants/ProductsData").perfumes[number];
@@ -9,8 +11,12 @@ type ProductCardProps = {
 };
 
 function ProductCard({ product }: ProductCardProps) {
+  const router = useRouter();
   return (
-    <div className="group bg-white border border-gray-200 rounded-3xl shadow-lg hover:shadow-2xl hover:-translate-y-3 transition-all duration-500 ease-out overflow-hidden flex flex-col relative">
+    <div
+      onClick={() => router.push(`/single-product/${product.id}`)}
+      className="group bg-white border border-gray-200 rounded-3xl shadow-lg hover:shadow-2xl hover:-translate-y-3 transition-all duration-500 ease-out overflow-hidden flex flex-col relative"
+    >
       <div className="w-full h-64 relative bg-gradient-to-br from-gray-50 to-gray-200 flex items-center justify-center overflow-hidden">
         <img
           src={

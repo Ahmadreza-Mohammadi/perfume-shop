@@ -9,9 +9,9 @@ function page() {
   return (
     <>
       <HomeHeader />
-      <div className="max-w-7xl mx-auto px-4 py-6 pb-24 flex flex-col gap-6">
-        <SwiperComponent />
+      <div className="max-w-[1440px] mx-auto px-4 py-6 pb-24 flex flex-col gap-6">
         <TopPerfumes />
+        <SwiperComponent />
         <SearchBar />
         <TopBrands />
         <RandomProducts />

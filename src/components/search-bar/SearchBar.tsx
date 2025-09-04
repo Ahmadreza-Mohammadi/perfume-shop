@@ -1,15 +1,15 @@
 import Image from "next/image";
 import search from "../../../public/search.svg";
 
-
 function SearchBar() {
   return (
     <div className="bg-[#FAFAFA] h-8 m-auto w-12/13 flex items-center justify-center rounded-sm">
-        <Image
-            className="w-6 h-6 cursor-pointer"
-            src={search}
-            alt="search" />
-      <input className="outline-none w-7/8" placeholder="جستجو..." type="text" />
+      <Image className="w-6 h-6 cursor-pointer" src={search} alt="search" />
+      <input
+        className="outline-none w-7/8"
+        placeholder="جستجو..."
+        type="text"
+      />
     </div>
   );
 }

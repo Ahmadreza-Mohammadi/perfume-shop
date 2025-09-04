@@ -7,7 +7,10 @@ export default function AuthFooter() {
     <div className="mt-6 text-center">
       <p className="text-sm text-gray-600">
         حساب کاربری ندارید؟{" "}
-        <Link href="/register" className="font-medium text-gray-800 hover:text-gray-600">
+        <Link
+          href="/register"
+          className="font-medium text-gray-800 hover:text-gray-600"
+        >
           ثبت نام کنید
         </Link>
       </p>

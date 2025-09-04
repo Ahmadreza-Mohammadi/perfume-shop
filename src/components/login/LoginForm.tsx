@@ -7,8 +7,14 @@ type Props = {
 };
 
 export default function LoginForm({ onLogin, loading }: Props) {
-  const [values, setValues] = useState({ email: "", password: "", remember: true });
-  const [errors, setErrors] = useState<{ email?: string; password?: string }>({});
+  const [values, setValues] = useState({
+    email: "",
+    password: "",
+    remember: true,
+  });
+  const [errors, setErrors] = useState<{ email?: string; password?: string }>(
+    {}
+  );
 
   const validateField = (name: string, value: string) => {
     if (name === "email") {
@@ -26,8 +32,11 @@ export default function LoginForm({ onLogin, loading }: Props) {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type, checked } = e.target;
     const nextValue = type === "checkbox" ? checked : value;
-    setValues(prev => ({ ...prev, [name]: nextValue }));
-    setErrors(prev => ({ ...prev, [name]: type === "checkbox" ? undefined : validateField(name, value) }));
+    setValues((prev) => ({ ...prev, [name]: nextValue }));
+    setErrors((prev) => ({
+      ...prev,
+      [name]: type === "checkbox" ? undefined : validateField(name, value),
+    }));
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -41,9 +50,14 @@ export default function LoginForm({ onLogin, loading }: Props) {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="bg-white rounded-xl p-6 border border-gray-200 space-y-4">
+    <form
+      onSubmit={handleSubmit}
+      className="bg-white rounded-xl p-6 border border-gray-200 space-y-4"
+    >
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">ایمیل</label>
+        <label className="block text-sm font-medium text-gray-700 mb-2">
+          ایمیل
+        </label>
         <input
           type="email"
           name="email"
@@ -51,14 +65,22 @@ export default function LoginForm({ onLogin, loading }: Props) {
           onChange={handleChange}
           placeholder="ایمیل خود را وارد کنید"
           className={`w-full px-4 py-3 border rounded-sm focus:outline-none bg-[#FAFAFA] text-right ${
-            errors.email ? "border-red-500 focus:border-red-500" : "border-gray-300 focus:border-gray-400"
+            errors.email
+              ? "border-red-500 focus:border-red-500"
+              : "border-gray-300 focus:border-gray-400"
           }`}
         />
-        {errors.email && <span className="text-red-500 text-sm mt-1 block">{errors.email}</span>}
+        {errors.email && (
+          <span className="text-red-500 text-sm mt-1 block">
+            {errors.email}
+          </span>
+        )}
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">رمز عبور</label>
+        <label className="block text-sm font-medium text-gray-700 mb-2">
+          رمز عبور
+        </label>
         <input
           type="password"
           name="password"
@@ -66,18 +88,35 @@ export default function LoginForm({ onLogin, loading }: Props) {
           onChange={handleChange}
           placeholder="رمز عبور خود را وارد کنید"
           className={`w-full px-4 py-3 border rounded-sm focus:outline-none bg-[#FAFAFA] text-right ${
-            errors.password ? "border-red-500 focus:border-red-500" : "border-gray-300 focus:border-gray-400"
+            errors.password
+              ? "border-red-500 focus:border-red-500"
+              : "border-gray-300 focus:border-gray-400"
           }`}
         />
-        {errors.password && <span className="text-red-500 text-sm mt-1 block">{errors.password}</span>}
+        {errors.password && (
+          <span className="text-red-500 text-sm mt-1 block">
+            {errors.password}
+          </span>
+        )}
       </div>
 
       <div className="flex items-center justify-between">
         <label className="flex items-center text-sm text-gray-700">
-          <input type="checkbox" name="remember" checked={values.remember} onChange={handleChange} className="h-4 w-4 text-gray-600 border-gray-300 rounded mr-2" />
+          <input
+            type="checkbox"
+            name="remember"
+            checked={values.remember}
+            onChange={handleChange}
+            className="h-4 w-4 text-gray-600 border-gray-300 rounded mr-2"
+          />
           مرا به خاطر بسپار
         </label>
-        <a href="/forgot-password" className="text-sm text-gray-600 hover:text-gray-800">فراموشی رمز؟</a>
+        <a
+          href="/forgot-password"
+          className="text-sm text-gray-600 hover:text-gray-800"
+        >
+          فراموشی رمز؟
+        </a>
       </div>
 
       <button
