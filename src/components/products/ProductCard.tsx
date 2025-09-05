@@ -2,6 +2,7 @@
 import Link from "next/link";
 import { digitsEnToFa, formatPrice } from "../utils/helper";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 export type Product =
   typeof import("../constants/ProductsData").perfumes[number];
@@ -12,9 +13,16 @@ type ProductCardProps = {
 
 function ProductCard({ product }: ProductCardProps) {
   const router = useRouter();
+  const [isNavigating, setIsNavigating] = useState(false);
+
+  const handleProductClick = () => {
+    setIsNavigating(true);
+    router.push(`/single-product/${product.id}`);
+  };
+
   return (
     <div
-      onClick={() => router.push(`/single-product/${product.id}`)}
+      onClick={handleProductClick}
       className="group bg-white border border-gray-200 rounded-3xl shadow-lg hover:shadow-2xl hover:-translate-y-3 transition-all duration-500 ease-out overflow-hidden flex flex-col relative"
     >
       <div className="w-full h-64 relative bg-gradient-to-br from-gray-50 to-gray-200 flex items-center justify-center overflow-hidden">
@@ -31,6 +39,17 @@ function ProductCard({ product }: ProductCardProps) {
             <span className="text-lg font-bold text-red-600 bg-white px-4 py-2 rounded-full shadow-xl border border-red-200">
               ناموجود
             </span>
+          </div>
+        )}
+
+        {isNavigating && (
+          <div className="absolute inset-0 bg-white/90 backdrop-blur-md flex items-center justify-center z-20">
+            <div className="flex flex-col items-center space-y-3">
+              <div className="w-8 h-8 border-3 border-gray-200 border-t-gray-800 rounded-full animate-spin"></div>
+              <span className="text-sm font-medium text-gray-700">
+                در حال بارگذاری...
+              </span>
+            </div>
           </div>
         )}
       </div>
@@ -97,12 +116,20 @@ function ProductCard({ product }: ProductCardProps) {
             </p>
             <span className="text-sm text-gray-500">تومان</span>
           </div>
-          <Link
-            href={`/single-product/${product.id}`}
-            className="bg-gradient-to-r from-gray-800 to-gray-900 text-white text-sm font-semibold px-5 py-3 rounded-full shadow-lg hover:shadow-xl hover:from-gray-900 hover:to-gray-800 transition-all duration-300 ease-out focus:outline-none focus:ring-2 focus:ring-gray-800 focus:ring-opacity-50 transform hover:scale-105 active:scale-95 cursor-pointer"
+          <button
+            onClick={handleProductClick}
+            disabled={isNavigating}
+            className="bg-gradient-to-r from-gray-800 to-gray-900 text-white text-sm font-semibold px-5 py-3 rounded-full shadow-lg hover:shadow-xl hover:from-gray-900 hover:to-gray-800 transition-all duration-300 ease-out focus:outline-none focus:ring-2 focus:ring-gray-800 focus:ring-opacity-50 transform hover:scale-105 active:scale-95 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
           >
-            مشاهده محصول
-          </Link>
+            {isNavigating ? (
+              <div className="flex items-center space-x-2 space-x-reverse">
+                <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                <span>در حال بارگذاری...</span>
+              </div>
+            ) : (
+              "مشاهده محصول"
+            )}
+          </button>
         </div>
       </div>
     </div>
