@@ -1,23 +1,30 @@
 import TopBar from "@/components/products/TopBar";
 import { getSupabase } from "../../../../lib/supabaseClient";
+import Product from "@/components/single-product/Product";
 
-function page({ params }: { params: { id: string | number } }) {
+async function page({ params }: { params: { id: string | number } }) {
   const { id } = params;
-  async function getProduct(id: string | number) {
+
+  async function getProduct(productId: string | number) {
     const supabase = getSupabase();
     const { data, error } = await supabase
       .from("products")
       .select("*")
-      .eq("id", id);
-    console.log(data);
-    return data;
+      .eq("id", productId)
+      .limit(1);
+    if (error) {
+      console.error("Failed to fetch product", error);
+      return null;
+    }
+    return Array.isArray(data) ? data[0] : data;
   }
-  getProduct(id);
+
+  const product = await getProduct(id);
   return (
     <>
       <TopBar />
-      <div className="m-auto max-w-[1440px] min-h-screen">
-      
+      <div className="mt-10">
+        <Product id={id} product={product} />
       </div>
     </>
   );
