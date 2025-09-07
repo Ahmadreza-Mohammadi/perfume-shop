@@ -13,6 +13,7 @@ function HomeHeader() {
   const [user, setUser] = useState<any>(null);
   const [loading, setLoading] = useState(false);
   const [logOut, setLogOut] = useState(false);
+  const [profile, setProfile] = useState<any>(null);
 
   useEffect(() => {
     const supabase = getSupabase(); // ✅ داخل useEffect
@@ -22,11 +23,12 @@ function HomeHeader() {
         console.error("❌ خطا در گرفتن کاربر:", error.message);
       } else if (data?.user) {
         setUser(data.user);
+        setProfile(data.user.user_metadata);
+        console.log(data.user.user_metadata)
       }
     };
     fetchUser();
   }, []);
-
   const handleLogout = async () => {
     const supabase = getSupabase();
     setLoading(true);
@@ -102,7 +104,7 @@ function HomeHeader() {
               >
                 <div className="relative p-1 rounded-2xl bg-gray-50 hover:bg-gray-100 transition-all duration-300 ease-out shadow-sm hover:shadow-md border border-gray-200 hover:border-gray-300">
                   <Image
-                    src={profile}
+                    src={profile?.avatarUrl || "/profile.svg"}
                     width={48}
                     height={48}
                     className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl transition-all duration-300 ease-out group-hover:scale-105 group-active:scale-95 shadow-sm"
