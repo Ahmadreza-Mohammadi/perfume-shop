@@ -65,7 +65,7 @@ function Menu() {
   };
 
   return (
-    <div className="w-full sticky bottom-0 z-30 backdrop-blur border-t border-gray-200">
+    <div className="w-full sticky bottom-0 z-30 backdrop-blur border-t border-gray-200 ">
       <div className="max-w-7xl mx-auto px-4 py-1">
         <div className="sm:w-[420px] md:w-[640px] lg:w-[768px] xl:w-[1024px] m-auto flex justify-center rounded-t-xl ">
           <div className="flex w-full justify-around">

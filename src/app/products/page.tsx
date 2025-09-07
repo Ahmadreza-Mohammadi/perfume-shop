@@ -1,11 +1,9 @@
 import Products from "@/components/products/Products";
 
 function page() {
-  return (
-    <>
-      <Products />
-    </>
-  );
+  return <Products />
+   
+  
 }
 
 export default page;

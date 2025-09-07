@@ -1,6 +1,10 @@
-import { SampleTopPerfumes } from "../constants/SampleTopPerfumes";
+"use client";
+
+import { useRouter } from "next/navigation";
+import { TopPerfumesList } from "../constants/TopPerfumesList";
 
 function TopPerfumes() {
+  const router = useRouter();
   return (
     <div className="flex flex-col gap-6">
       {/* Enhanced Header Section */}
@@ -27,9 +31,13 @@ function TopPerfumes() {
 
         {/* Scrollable Content */}
         <div className="flex gap-4 px-6 overflow-x-auto scrollbar-hide scroll-smooth">
-          {SampleTopPerfumes.map((perfume, index) => (
-            <div key={index} className="group/item py-2 relative flex-shrink-0">
+          {TopPerfumesList.map((perfume) => (
+            <div
+              key={perfume.id}
+              className="group/item py-2 relative flex-shrink-0"
+            >
               <button
+                onClick={() => router.push(`/single-product/${perfume.id}`)}
                 className="
                   relative px-6 py-3 rounded-2xl 
                   bg-gradient-to-br from-white to-gray-50 
@@ -48,7 +56,7 @@ function TopPerfumes() {
 
                 {/* Text Content */}
                 <span className="relative z-10 text-sm sm:text-base font-semibold text-[#343A40] group-hover/item:text-white transition-colors duration-300">
-                  {perfume}
+                  {perfume.name}
                 </span>
 
                 {/* Subtle Glow Effect */}
