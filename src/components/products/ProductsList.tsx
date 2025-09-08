@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import ProductCard, { Product } from "./ProductCard";
-import { getSupabase } from "../../../lib/supabaseClient";
+import { getSupabase } from "../../lib/supabaseClient";
 
 type ProductWithId = Product & { id: string | number };
 

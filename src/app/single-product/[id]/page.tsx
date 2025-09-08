@@ -1,5 +1,5 @@
 import TopBar from "@/components/products/TopBar";
-import { getSupabase } from "../../../../lib/supabaseClient";
+import { getSupabase } from "../../../lib/supabaseClient";
 import Product from "@/components/single-product/Product";
 
 async function page({ params }: { params: { id: string | number } }) {

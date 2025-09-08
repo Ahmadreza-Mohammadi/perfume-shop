@@ -4,7 +4,7 @@ import bellIcon from "../../../public/bell.svg";
 import profile from "../../../public/profile.svg";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { getSupabase } from "../../../lib/supabaseClient";
+import { getSupabase } from "../../lib/supabaseClient";
 import ThemeToggle from "@/components/theme/ThemeToggle";
 import ModalComponent from "../shared/ModalComponent";
 
@@ -16,7 +16,7 @@ function HomeHeader() {
   const [profile, setProfile] = useState<any>(null);
 
   useEffect(() => {
-    const supabase = getSupabase(); // ✅ داخل useEffect
+    const supabase = getSupabase();
     const fetchUser = async () => {
       const { data, error } = await supabase.auth.getUser();
       if (error) {
@@ -24,7 +24,6 @@ function HomeHeader() {
       } else if (data?.user) {
         setUser(data.user);
         setProfile(data.user.user_metadata);
-        console.log(data.user.user_metadata)
       }
     };
     fetchUser();

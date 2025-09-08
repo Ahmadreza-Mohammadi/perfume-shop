@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import ProfileCard from "./ProfileCard";
 import { toast } from "react-toastify";
-import { getSupabase } from "../../../lib/supabaseClient";
+import { getSupabase } from "../../lib/supabaseClient";
 
 interface ProfileFormProps {
   initialFullName?: string;

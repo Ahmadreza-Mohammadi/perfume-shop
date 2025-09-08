@@ -1,4 +1,4 @@
-import { getSupabase } from "../../../lib/supabaseClient";
+import { getSupabase } from "../../lib/supabaseClient";
 import ProductList from "../products/ProductsList";
 
 export default async function RandomProducts() {

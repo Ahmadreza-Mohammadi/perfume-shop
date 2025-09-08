@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { getSupabase } from "../../../lib/supabaseClient";
+import { getSupabase } from "../../lib/supabaseClient";
 import ProfileHeader from "@/components/profile/ProfileHeader";
 import ProfileCard from "@/components/profile/ProfileCard";
 import ProfileForm from "@/components/profile/ProfileForm";
@@ -61,7 +61,7 @@ export default function ProfilePage() {
                 </div>
                 <div className="flex items-center justify-between">
                   <span className="text-gray-600">آدرس</span>
-                <span>{user?.user_metadata?.address}</span>
+                  <span>{user?.user_metadata?.address}</span>
                 </div>
               </div>
             </ProfileCard>

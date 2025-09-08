@@ -7,16 +7,13 @@ interface ProfileHeaderProps {
   avatarUrl?: string;
 }
 
-function ProfileHeader({
-  name = "کاربر",
-  email = "",
-  avatarUrl,
-}: ProfileHeaderProps) {
+function ProfileHeader({ name = "کاربر", avatarUrl }: ProfileHeaderProps) {
+  
   return (
     <div className="w-full bg-white border border-gray-200 rounded-3xl shadow-lg p-6 flex items-center gap-4">
       <div className="relative w-16 h-16 sm:w-20 sm:h-20 rounded-2xl overflow-hidden bg-gray-100 border border-gray-200">
         <img
-          src={avatarUrl || "/profile.svg"}
+          src={avatarUrl}
           alt={name}
           className="w-full h-full object-cover"
           onError={(e) => {

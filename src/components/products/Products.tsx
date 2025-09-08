@@ -3,7 +3,7 @@ import TopBar from "./TopBar";
 import FilterSidebar from "./FilterSidebar";
 import Footer from "./ProductsFooter";
 import MobileFilterWrapper from "./MobileFilterWrapper";
-import { getSupabase } from "../../../lib/supabaseClient";
+import { getSupabase } from "../../lib/supabaseClient";
 
 export default async function Products() {
   const supabase = getSupabase();
