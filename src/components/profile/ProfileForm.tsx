@@ -15,7 +15,7 @@ interface ProfileFormProps {
     address?: string;
     avatarUrl?: string;
   }) => Promise<void> | void;
-  userId: string; // اضافه می‌کنیم برای مسیر فایل
+  userId: string; // Needed for building the storage file path
 }
 
 function ProfileForm({
@@ -39,13 +39,13 @@ function ProfileForm({
     try {
       let avatarUrl: string | undefined;
 
-      // اگر کاربر فایل انتخاب کرده بود، آپلود کن
+      // If user selected a file, upload it
       if (avatarFile) {
         const fileExt = avatarFile.name.split(".").pop();
         const filePath = `${userId}/avatar.${fileExt}`;
         const supabase = getSupabase();
         const { error: uploadError } = await supabase.storage
-          .from("avatars") // اسم باکت پرایوت
+          .from("avatars") // Private bucket name
           .upload(filePath, avatarFile, {
             cacheControl: "3600",
             upsert: true,
@@ -53,10 +53,10 @@ function ProfileForm({
 
         if (uploadError) throw uploadError;
 
-        // گرفتن signed url
+        // Get a signed URL for temporary access
         const { data, error: urlError } = await supabase.storage
           .from("avatars")
-          .createSignedUrl(filePath, 60 * 60); // لینک یک ساعته
+          .createSignedUrl(filePath, 60 * 60); // 1-hour link
 
         if (urlError) throw urlError;
 
@@ -75,7 +75,7 @@ function ProfileForm({
   return (
     <ProfileCard title="اطلاعات کاربر">
       <form onSubmit={handleSubmit} className="grid grid-cols-1 gap-5">
-        {/* نام و ایمیل */}
+        {/* Name and email */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
           <div className="space-y-2">
             <label className="text-sm font-medium text-gray-700">
@@ -100,7 +100,7 @@ function ProfileForm({
           </div>
         </div>
 
-        {/* موبایل و آدرس */}
+        {/* Phone and address */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
           <div className="space-y-2">
             <label className="text-sm font-medium text-gray-700">
@@ -126,7 +126,7 @@ function ProfileForm({
           </div>
         </div>
 
-        {/* آپلود تصویر */}
+        {/* Avatar upload */}
         <div className="space-y-2">
           <label className="text-sm font-medium text-gray-700">
             تصویر پروفایل
@@ -139,7 +139,7 @@ function ProfileForm({
           />
         </div>
 
-        {/* دکمه ذخیره */}
+        {/* Save button */}
         <div className="flex justify-end">
           <button
             type="submit"

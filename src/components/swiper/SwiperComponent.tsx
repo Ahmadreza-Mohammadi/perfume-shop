@@ -12,7 +12,7 @@ import { Autoplay, Navigation, Pagination } from "swiper/modules";
 interface Slide {
   id: number;
   title: string;
-  image: string; // مسیر عکس
+  image: string; // Image path
 }
 
 const slides: Slide[] = [
