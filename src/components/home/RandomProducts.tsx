@@ -10,7 +10,14 @@ export default async function RandomProducts() {
     count,
   } = await supabase
     .from("products")
-    .select("*", { count: "exact" })
+    .select(`
+      *,
+      product_variants (
+        id,
+        volume,
+        price
+      )
+    `, { count: "exact" })
     .range(0, 11);
 
   if (error) {
