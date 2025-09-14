@@ -1,7 +1,8 @@
 "use client";
 import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
-import { getSupabase } from "../../../lib/supabaseClient";
+import { getSupabase } from "../../lib/supabaseClient";
+import { toast } from "react-toastify";
 import AuthHeader from "@/components/login/AuthHeader";
 import LoginForm from "@/components/login/LoginForm";
 import OAuthButtons from "@/components/login/OAuthButtons";
@@ -59,8 +60,11 @@ export default function LoginPage() {
       password,
     });
     setLoading(false);
-    if (error) alert(mapAuthErrorToMessage(error.message));
-    else if (data.user) router.replace("/home");
+    if (error) toast.error("ایمیل یا رمز عبور اشتباه است");
+    else if (data.user) {
+      toast.success("ورود با موفقیت انجام شد");
+      router.replace("/home");
+    }
   };
 
   const handleOAuth = async (provider: "google" | "facebook") => {

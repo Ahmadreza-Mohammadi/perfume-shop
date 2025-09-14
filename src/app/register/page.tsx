@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import BackIcon from "@/components/shared/BackIcon";
 import Link from "next/link";
-import { getSupabase } from "../../../lib/supabaseClient";
+import { getSupabase } from "../../lib/supabaseClient";
 import type { AuthChangeEvent, Session } from "@supabase/supabase-js";
 import { useRouter } from "next/navigation";
 

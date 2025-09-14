@@ -3,7 +3,7 @@ import TopBar from "./TopBar";
 import FilterSidebar from "./FilterSidebar";
 import Footer from "./ProductsFooter";
 import MobileFilterWrapper from "./MobileFilterWrapper";
-import { getSupabase } from "../../../lib/supabaseClient";
+import { getSupabase } from "../../lib/supabaseClient";
 
 export default async function Products() {
   const supabase = getSupabase();
@@ -13,9 +13,16 @@ export default async function Products() {
     count,
   } = await supabase
     .from("products")
-    .select("*", { count: "exact" })
+    .select(`
+      *,
+      product_variants (
+        id,
+        volume,
+        price
+      )
+    `, { count: "exact" })
     .range(0, 11);
-
+  
   if (error) {
     console.error("❌ Error fetching products:", error.message);
     return (
