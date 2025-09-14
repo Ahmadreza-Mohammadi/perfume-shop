@@ -34,6 +34,7 @@ export default async function RandomProducts() {
 
   return (
     <section className="w-full max-w-7xl mx-auto px-4 py-8">
+      
       <ProductList initialPerfumes={perfumes || []} totalCount={count || 0} />
     </section>
   );

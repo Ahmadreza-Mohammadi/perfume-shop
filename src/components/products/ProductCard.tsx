@@ -4,22 +4,13 @@ import { digitsEnToFa, formatPrice } from "../utils/helper";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-export type Product =
-  typeof import("../constants/ProductsData").perfumes[number];
-
-type ProductCardProps = {
-  product: Product & { id?: string | number };
-};
-
-function ProductCard({ product }: ProductCardProps) {
+function ProductCard({ product }: any) {
   const router = useRouter();
   const [isNavigating, setIsNavigating] = useState(false);
-
+  const productVariants = product.product_variants || [];
+  const prices = productVariants[0]?.price || 0;
+  const volumes = productVariants?.map((i: any) => i.volume).join(",") || 0;
   // Get the first variant for display (lowest volume or first available)
-  const firstVariant = product.variants?.[0];
-  const displayVolume = firstVariant?.volume || 0;
-  const displayPrice = firstVariant?.price || 0;
-
   const handleProductClick = () => {
     setIsNavigating(true);
     router.push(`/single-product/${product.id}`);
@@ -73,7 +64,7 @@ function ProductCard({ product }: ProductCardProps) {
 
           <div className="flex flex-wrap gap-2 justify-center">
             <span className="text-xs font-medium text-gray-700 bg-gray-100 px-3 py-1.5 rounded-full border border-gray-300">
-              حجم: {digitsEnToFa(displayVolume)}ml
+              حجم: {digitsEnToFa(volumes)}ml
             </span>
             <span className="text-xs font-medium text-gray-700 bg-gray-100 px-3 py-1.5 rounded-full capitalize border border-gray-300">
               {product.perfumeType}
@@ -111,7 +102,7 @@ function ProductCard({ product }: ProductCardProps) {
         <div className="flex items-center justify-between pt-3 border-t border-gray-200">
           <div className="flex flex-col">
             <p className="text-xl font-bold text-gray-800">
-              {formatPrice(displayPrice)}
+              {digitsEnToFa(prices)}
             </p>
             <span className="text-sm text-gray-500">تومان</span>
           </div>

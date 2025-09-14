@@ -1,10 +1,10 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import ProductCard, { Product } from "./ProductCard";
+import ProductCard from "./ProductCard";
 import { getSupabase } from "../../lib/supabaseClient";
 
-type ProductWithId = Product & { id: string | number };
+type ProductWithId = any;
 
 type ProductListProps = {
   initialPerfumes: ProductWithId[];
@@ -32,7 +32,14 @@ export default function ProductList({
 
     const { data, error } = await supabase
       .from("products")
-      .select("*")
+      .select(`
+      *,
+      product_variants (
+        id,
+        volume,
+        price
+      )
+    `, { count: "exact" })
       .order("created_at", { ascending: false })
       .range(from, to);
 
