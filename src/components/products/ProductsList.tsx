@@ -9,10 +9,12 @@ type ProductWithId = any;
 type ProductListProps = {
   initialPerfumes: ProductWithId[];
   totalCount: number;
+  filters: any;
 };
 
 export default function ProductList({
   initialPerfumes,
+  filters,
   totalCount,
 }: ProductListProps) {
   const supabase = getSupabase();
@@ -23,6 +25,11 @@ export default function ProductList({
 
   const limit = 12;
 
+  useEffect(() => {
+    setPerfumes(initialPerfumes);
+    setPage(1);
+  }, [initialPerfumes]);
+
   const fetchMore = async () => {
     if (loading) return;
     setLoading(true);
@@ -30,18 +37,48 @@ export default function ProductList({
     const from = page * limit;
     const to = from + limit - 1;
 
-    const { data, error } = await supabase
+    let query = supabase
       .from("products")
-      .select(`
-      *,
-      product_variants (
-        id,
-        volume,
-        price
+      .select(
+        `
+        *,
+        product_variants (
+          id,
+          volume,
+          price
+        )
+      `,
+        { count: "exact" }
       )
-    `, { count: "exact" })
       .order("created_at", { ascending: false })
       .range(from, to);
+
+    const { brand, gender, perfumeType, price } = filters;
+
+    if (brand) {
+      if (Array.isArray(brand)) query = query.in("brand", brand);
+      else if (brand.includes(",")) query = query.in("brand", brand.split(","));
+      else query = query.eq("brand", brand);
+    }
+
+    if (gender) {
+      if (gender.includes(",")) query = query.in("gender", gender.split(","));
+      else query = query.eq("gender", gender);
+    }
+
+    if (perfumeType) {
+      if (Array.isArray(perfumeType))
+        query = query.in("perfumeType", perfumeType);
+      else query = query.eq("perfumeType", perfumeType);
+    }
+
+    if (price) {
+      const [min, max] = price.split("-").map(Number);
+      if (!isNaN(min)) query = query.gte("price", min);
+      if (!isNaN(max)) query = query.lte("price", max);
+    }
+
+    const { data, error } = await query;
 
     if (!error && data) {
       setPerfumes((prev) => {

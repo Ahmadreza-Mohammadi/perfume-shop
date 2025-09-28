@@ -9,7 +9,14 @@ async function page({ params }: { params: { id: string | number } }) {
     const supabase = getSupabase();
     const { data, error } = await supabase
       .from("products")
-      .select("*")
+       .select(`
+      *,
+      product_variants (
+        id,
+        volume,
+        price
+      )
+    `, { count: "exact" })
       .eq("id", productId)
       .limit(1);
     if (error) {
@@ -20,6 +27,7 @@ async function page({ params }: { params: { id: string | number } }) {
   }
 
   const product = await getProduct(id);
+
   return (
     <>
       <TopBar />
