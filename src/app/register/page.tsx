@@ -175,7 +175,7 @@ function RegisterPage() {
         {/* Main content */}
         <div className="flex-1 flex items-center justify-center px-4 py-8">
           <div className="w-full max-w-md">
-            {/* Logo and title section */}
+            {/* Logo and title */}
             <div className="text-center mb-8">
               <div className="mb-6">
                 <div className="w-16 h-16 mx-auto bg-[#fff] rounded-full flex items-center justify-center shadow-sm border border-gray-200">
@@ -191,7 +191,7 @@ function RegisterPage() {
             {/* Register form */}
             <div className="bg-[#fff] rounded-xl p-6 border border-gray-200">
               <form onSubmit={handleRegister} noValidate className="space-y-4">
-                {/* Full Name field */}
+                {/* Full name */}
                 <div>
                   <label
                     htmlFor="fullName"
@@ -220,7 +220,7 @@ function RegisterPage() {
                   )}
                 </div>
 
-                {/* Email field */}
+                {/* Email */}
                 <div>
                   <label
                     htmlFor="email"
@@ -249,7 +249,7 @@ function RegisterPage() {
                   )}
                 </div>
 
-                {/* Phone field */}
+                {/* Phone */}
                 <div>
                   <label
                     htmlFor="phone"
@@ -278,7 +278,7 @@ function RegisterPage() {
                   )}
                 </div>
 
-                {/* Password field */}
+                {/* Password */}
                 <div>
                   <label
                     htmlFor="password"
@@ -307,7 +307,7 @@ function RegisterPage() {
                   )}
                 </div>
 
-                {/* Confirm Password field */}
+                {/* Confirm password */}
                 <div>
                   <label
                     htmlFor="confirmPassword"
@@ -380,7 +380,7 @@ function RegisterPage() {
                 </button>
               </form>
 
-              {/* Social logins + footer همون قبلی */}
+              {/* Social logins + footer (same as before) */}
             </div>
           </div>
         </div>

@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { createClient } from "@supabase/supabase-js";
 import { perfumes } from "../constants/ProductsData";
+import { variants } from "../constants/variants";
 
-// گرفتن env ها با چک کردن
+// Load and validate environment variables
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL as string;
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY as string;
 
@@ -10,7 +11,7 @@ if (!supabaseUrl || !supabaseAnonKey) {
   throw new Error("❌ Missing Supabase URL or Anon Key in .env.local");
 }
 
-// ساخت کلاینت supabase
+// Create Supabase client
 const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
 function SetDataOnServer() {
@@ -20,7 +21,7 @@ function SetDataOnServer() {
   const handleInsert = async () => {
     setLoading(true);
     try {
-      const { data, error } = await supabase.from("products").insert(perfumes);
+      const { data, error } = await supabase.from("product_variants").insert(variants);
 
       if (error) {
         console.error("❌ Error inserting perfumes:", error.message);
@@ -39,7 +40,7 @@ function SetDataOnServer() {
     <div>
       <button
         onClick={handleInsert}
-        disabled={loading || success} // اگر در حال آپلوده یا قبلاً انجام شده، غیر فعال می‌کنه
+        disabled={loading || success} // Disable if uploading or already done
         style={{
           padding: "10px 20px",
           backgroundColor: success ? "green" : "#0070f3",

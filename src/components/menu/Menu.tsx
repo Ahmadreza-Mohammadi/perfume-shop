@@ -94,8 +94,8 @@ function Menu() {
                         isActive
                           ? "transform scale-105"
                           : "hover:transform hover:scale-110"
-                      }
-                    `}
+                      }`
+                    }
                   >
                     {/* Icon with smooth transition and hover effects */}
                     <div className="relative">
