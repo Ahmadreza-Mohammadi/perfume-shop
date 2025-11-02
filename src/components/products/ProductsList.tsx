@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
 import ProductCard from "./ProductCard";
 import { getSupabase } from "../../lib/supabaseClient";
 
@@ -9,12 +9,12 @@ type ProductWithId = any;
 type ProductListProps = {
   initialPerfumes: ProductWithId[];
   totalCount: number;
-  filters: any;
+  filters?: any;
 };
 
 export default function ProductList({
   initialPerfumes,
-  filters,
+  filters = {},
   totalCount,
 }: ProductListProps) {
   const supabase = getSupabase();
@@ -22,98 +22,120 @@ export default function ProductList({
   const [page, setPage] = useState<number>(1);
   const [loading, setLoading] = useState<boolean>(false);
   const loadMoreRef = useRef<HTMLDivElement | null>(null);
+  const observerRef = useRef<IntersectionObserver | null>(null);
+  const isFetchingRef = useRef<boolean>(false);
 
   const limit = 12;
 
   useEffect(() => {
     setPerfumes(initialPerfumes);
     setPage(1);
+    isFetchingRef.current = false;
   }, [initialPerfumes]);
 
-  const fetchMore = async () => {
-    if (loading) return;
+  const fetchMore = useCallback(async () => {
+    if (isFetchingRef.current) return;
+
+    isFetchingRef.current = true;
     setLoading(true);
 
-    const from = page * limit;
-    const to = from + limit - 1;
+    setPage((currentPage) => {
+      const from = currentPage * limit;
+      const to = from + limit - 1;
 
-    let query = supabase
-      .from("products")
-      .select(
-        `
-        *,
-        product_variants (
-          id,
-          volume,
-          price
+      let query = supabase
+        .from("products")
+        .select(
+          `
+          *,
+          product_variants (
+            id,
+            volume,
+            price
+          )
+        `,
+          { count: "exact" }
         )
-      `,
-        { count: "exact" }
-      )
-      .order("created_at", { ascending: false })
-      .range(from, to);
+        .order("created_at", { ascending: false })
+        .range(from, to);
 
-    const { brand, gender, perfumeType, price } = filters;
+      const { brand, gender, perfumeType, price } = filters || {};
 
-    if (brand) {
-      if (Array.isArray(brand)) query = query.in("brand", brand);
-      else if (brand.includes(",")) query = query.in("brand", brand.split(","));
-      else query = query.eq("brand", brand);
-    }
+      if (brand) {
+        if (Array.isArray(brand)) query = query.in("brand", brand);
+        else if (brand.includes(","))
+          query = query.in("brand", brand.split(","));
+        else query = query.eq("brand", brand);
+      }
 
-    if (gender) {
-      if (gender.includes(",")) query = query.in("gender", gender.split(","));
-      else query = query.eq("gender", gender);
-    }
+      if (gender) {
+        if (gender.includes(",")) query = query.in("gender", gender.split(","));
+        else query = query.eq("gender", gender);
+      }
 
-    if (perfumeType) {
-      if (Array.isArray(perfumeType))
-        query = query.in("perfumeType", perfumeType);
-      else query = query.eq("perfumeType", perfumeType);
-    }
+      if (perfumeType) {
+        if (Array.isArray(perfumeType))
+          query = query.in("perfumeType", perfumeType);
+        else query = query.eq("perfumeType", perfumeType);
+      }
 
-    if (price) {
-      const [min, max] = price.split("-").map(Number);
-      if (!isNaN(min)) query = query.gte("price", min);
-      if (!isNaN(max)) query = query.lte("price", max);
-    }
+      if (price) {
+        const [min, max] = price.split("-").map(Number);
+        if (!isNaN(min)) query = query.gte("price", min);
+        if (!isNaN(max)) query = query.lte("price", max);
+      }
 
-    const { data, error } = await query;
-
-    if (!error && data) {
-      setPerfumes((prev) => {
-        const merged = [...prev, ...(data as ProductWithId[])];
-        const unique = merged.filter(
-          (p, idx, self) => idx === self.findIndex((x) => x.id === p.id)
-        );
-        return unique;
+      query.then(({ data, error }) => {
+        if (!error && data && data.length > 0) {
+          setPerfumes((prev) => {
+            const merged = [...prev, ...(data as ProductWithId[])];
+            const unique = merged.filter(
+              (p, idx, self) => idx === self.findIndex((x) => x.id === p.id)
+            );
+            return unique;
+          });
+        }
+        setLoading(false);
+        isFetchingRef.current = false;
       });
-      setPage((prev) => prev + 1);
-    }
 
-    setLoading(false);
-  };
+      return currentPage + 1;
+    });
+  }, [filters, supabase, limit]);
 
   const allLoaded = perfumes.length >= totalCount;
 
   useEffect(() => {
     if (allLoaded) return;
 
+    // Cleanup previous observer
+    if (observerRef.current) {
+      observerRef.current.disconnect();
+      observerRef.current = null;
+    }
+
     const observer = new IntersectionObserver(
       (entries) => {
-        if (entries[0].isIntersecting) {
+        if (entries[0].isIntersecting && !isFetchingRef.current && !allLoaded) {
           fetchMore();
         }
       },
       { threshold: 0.5 }
     );
 
-    if (loadMoreRef.current) observer.observe(loadMoreRef.current);
+    observerRef.current = observer;
+
+    if (loadMoreRef.current) {
+      observer.observe(loadMoreRef.current);
+    }
 
     return () => {
-      if (loadMoreRef.current) observer.unobserve(loadMoreRef.current);
+      if (observerRef.current) {
+        observerRef.current.disconnect();
+        observerRef.current = null;
+      }
     };
-  }, [allLoaded, page]);
+  }, [allLoaded, fetchMore]);
 
   return (
     <section className="w-full">
