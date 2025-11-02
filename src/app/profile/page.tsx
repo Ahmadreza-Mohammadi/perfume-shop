@@ -48,70 +48,71 @@ export default function ProfilePage() {
       </div>
       <div className="max-w-[1440px] mx-auto p-4 sm:p-6">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-        {/* Left profile section */}
-        <div className="lg:col-span-4">
-          <ProfileHeader
-            name={user?.user_metadata?.fullName || "کاربر"}
-            email={user?.email}
-            avatarUrl={user?.user_metadata?.avatarUrl || "/profile.svg"}
-          />
-          <div className="mt-6">
-            <ProfileCard title="اطلاعات حساب">
-              <div className="space-y-2 text-sm text-gray-700">
-                <div className="flex items-center justify-between">
-                  <span className="text-gray-600">ایمیل</span>
-                  <span className="font-medium">{user?.email}</span>
+          {/* Left profile section */}
+          <div className="lg:col-span-4">
+            <ProfileHeader
+              name={user?.user_metadata?.fullName || "کاربر"}
+              email={user?.email}
+              avatarUrl={user?.user_metadata?.avatarUrl || "/profile.svg"}
+            />
+            <div className="mt-6">
+              <ProfileCard title="اطلاعات حساب">
+                <div className="space-y-2 text-sm text-gray-700">
+                  <div className="flex items-center justify-between">
+                    <span className="text-gray-600">ایمیل</span>
+                    <span className="font-medium">{user?.email}</span>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-gray-600">شناسه کاربر</span>
+                    <span className="font-mono text-xs text-gray-500">
+                      {user?.id}
+                    </span>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-gray-600">آدرس</span>
+                    <span>{user?.user_metadata?.address}</span>
+                  </div>
                 </div>
-                <div className="flex items-center justify-between">
-                  <span className="text-gray-600">شناسه کاربر</span>
-                  <span className="font-mono text-xs text-gray-500">
-                    {user?.id}
-                  </span>
-                </div>
-                <div className="flex items-center justify-between">
-                  <span className="text-gray-600">آدرس</span>
-                  <span>{user?.user_metadata?.address}</span>
-                </div>
-              </div>
-            </ProfileCard>
+              </ProfileCard>
+            </div>
           </div>
-        </div>
 
-        {/* Right form section */}
-        <div className="lg:col-span-8 space-y-6">
-          <ProfileForm
-            initialFullName={user?.user_metadata?.fullName || ""}
-            initialEmail={user?.email || ""}
-            initialPhone={user?.user_metadata?.phone || ""}
-            initialAddress={user?.user_metadata?.address || ""}
-            initialAvatarUrl={user?.user_metadata?.avatarUrl || ""}
-            userId={user?.id}
-            onSave={async ({ fullName, phone, address, avatarUrl }) => {
-              const supabase = getSupabase();
+          {/* Right form section */}
+          <div className="lg:col-span-8 space-y-6">
+            <ProfileForm
+              initialFullName={user?.user_metadata?.fullName || ""}
+              initialEmail={user?.email || ""}
+              initialPhone={user?.user_metadata?.phone || ""}
+              initialAddress={user?.user_metadata?.address || ""}
+              initialAvatarUrl={user?.user_metadata?.avatarUrl || ""}
+              userId={user?.id}
+              onSave={async ({ fullName, phone, address, avatarUrl }) => {
+                const supabase = getSupabase();
 
-              const updates: any = {
-                data: {
-                  ...user?.user_metadata,
-                  ...(fullName ? { fullName } : {}),
-                  ...(phone ? { phone } : {}),
-                  ...(address ? { address } : {}),
-                  ...(avatarUrl === null
-                    ? { avatarUrl: null }
-                    : avatarUrl
-                    ? { avatarUrl }
-                    : {}),
-                },
-              };
+                const updates: any = {
+                  data: {
+                    ...user?.user_metadata,
+                    ...(fullName ? { fullName } : {}),
+                    ...(phone ? { phone } : {}),
+                    ...(address ? { address } : {}),
+                    ...(avatarUrl === null
+                      ? { avatarUrl: null }
+                      : avatarUrl
+                      ? { avatarUrl }
+                      : {}),
+                  },
+                };
 
-              const { error } = await supabase.auth.updateUser(updates);
-              if (error) throw error;
+                const { error } = await supabase.auth.updateUser(updates);
+                if (error) throw error;
 
-              const { data } = await supabase.auth.getUser();
-              if (data?.user) {
-                setUser(data.user); // Update local user state
-              }
-            }}
-          />
+                const { data } = await supabase.auth.getUser();
+                if (data?.user) {
+                  setUser(data.user); // Update local user state
+                }
+              }}
+            />
+          </div>
         </div>
       </div>
     </div>
