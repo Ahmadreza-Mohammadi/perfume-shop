@@ -105,6 +105,15 @@ export default function ProductList({
 
   const allLoaded = perfumes.length >= totalCount;
 
+  // Check if filters are applied
+  const hasFilters =
+    filters &&
+    (filters.brand || filters.gender || filters.perfumeType || filters.price);
+
+  // Check if no products found with filters applied
+  const noProductsFound =
+    hasFilters && perfumes.length === 0 && !loading && !isFetchingRef.current;
+
   useEffect(() => {
     if (allLoaded) return;
 
@@ -136,6 +145,24 @@ export default function ProductList({
       }
     };
   }, [allLoaded, fetchMore]);
+
+  // Show "no products found" message when filters are applied but no results
+  if (noProductsFound) {
+    return (
+      <section className="w-full">
+        <div className="flex flex-col items-center justify-center py-20">
+          <div className="text-gray-700 text-xl font-semibold mb-4">
+            محصولی یافت نشد
+          </div>
+          <div className="text-gray-500 text-center max-w-md">
+            متأسفانه با فیلترهای انتخاب شده محصولی یافت نشد.
+            <br />
+            لطفاً فیلترهای خود را تغییر دهید و دوباره تلاش کنید.
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className="w-full">
