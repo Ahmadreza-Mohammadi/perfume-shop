@@ -6,6 +6,7 @@ import { getSupabase } from "../../lib/supabaseClient";
 import ProfileHeader from "@/components/profile/ProfileHeader";
 import ProfileCard from "@/components/profile/ProfileCard";
 import ProfileForm from "@/components/profile/ProfileForm";
+import HeaderMenu from "@/components/menu/HeaderMenu";
 
 export default function ProfilePage() {
   const router = useRouter();
@@ -36,8 +37,17 @@ export default function ProfilePage() {
   if (!user) return null;
 
   return (
-    <div className="max-w-[1440px] mx-auto p-4 sm:p-6">
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+    <div className="min-h-screen w-full">
+      <div className="w-full sticky top-0 z-30 bg-white/80 backdrop-blur border-b border-gray-200">
+        <div className="max-w-[1440px] mx-auto px-4 py-3 flex items-center gap-4">
+          <h1 className="text-lg sm:text-xl font-extrabold text-[#343A40]">
+            پروفایل
+          </h1>
+          <HeaderMenu />
+        </div>
+      </div>
+      <div className="max-w-[1440px] mx-auto p-4 sm:p-6">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         {/* Left profile section */}
         <div className="lg:col-span-4">
           <ProfileHeader

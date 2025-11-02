@@ -1,14 +1,18 @@
 import BackIcon from "@/components/shared/BackIcon";
-import Image from "next/image";
-import Logo from "../../../public/perfume-bottle-heart.svg";
+import HeaderMenu from "../menu/HeaderMenu";
+import LogoutButton from "../shared/LogoutButton";
 
 function OrdersHeader() {
   return (
-    <div className="flex items-center">
-      <BackIcon />
-      <div className="flex items-center">
-        <span>سفارشات من</span>
-        <Image src={Logo} alt="perfume" className="h-10 w-10" />
+    <div className="w-full sticky top-0 z-30 bg-white/80 backdrop-blur border-b border-gray-200">
+      <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between gap-3 sm:gap-4">
+        <div className="flex items-center gap-4">
+          <BackIcon />
+          <HeaderMenu />
+        </div>
+        <div className="hidden md:flex items-center">
+          <LogoutButton />
+        </div>
       </div>
     </div>
   );

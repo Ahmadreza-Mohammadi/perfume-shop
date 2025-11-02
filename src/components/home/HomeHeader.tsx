@@ -5,13 +5,12 @@ import profileIcon from "../../../public/profile.svg";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { getSupabase } from "../../lib/supabaseClient";
-import ModalComponent from "../shared/ModalComponent";
+import HeaderMenu from "../menu/HeaderMenu";
+import LogoutButton from "../shared/LogoutButton";
 
 function HomeHeader() {
   const router = useRouter();
   const [user, setUser] = useState<any>(null);
-  const [loading, setLoading] = useState(false);
-  const [logOut, setLogOut] = useState(false);
   const [profile, setProfile] = useState<any>(null);
 
   useEffect(() => {
@@ -28,30 +27,14 @@ function HomeHeader() {
     fetchUser();
   }, []);
 
-  const handleLogout = async () => {
-    const supabase = getSupabase();
-    setLoading(true);
-    await supabase.auth.signOut();
-    setLoading(false);
-    setLogOut(false);
-    router.replace("/login");
-  };
-
-  const handleAuthClick = () => {
-    if (user) {
-      setLogOut(true);
-    } else {
-      router.push("/login");
-    }
-  };
-
   return (
     <>
       <header className="w-full sticky top-0 z-30 bg-white/80 backdrop-blur border-b border-gray-200">
         <div className="max-w-[1440px] mx-auto px-4 py-3">
           <div className="flex justify-between items-center gap-3 sm:gap-4">
             {/* Right side */}
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 md:gap-4">
+              <HeaderMenu />
               <button
                 className="group relative p-2.5 rounded-xl cursor-pointer bg-gray-50 hover:bg-gray-100 transition-all duration-300 ease-out shadow-sm hover:shadow-md border border-gray-200 hover:border-gray-300"
                 aria-label="Notifications"
@@ -66,15 +49,7 @@ function HomeHeader() {
                 <div className="absolute -top-1 -right-1 w-3 h-3  rounded-full border-2 border-white animate-pulse"></div>
               </button>
 
-              <button
-                onClick={handleAuthClick}
-                disabled={!!user && loading}
-                className="group relative px-3 py-2 rounded-xl cursor-pointer bg-gray-50 hover:bg-gray-100 transition-all duration-300 ease-out shadow-sm hover:shadow-md border border-gray-200 hover:border-gray-300 text-gray-700 text-sm sm:text-base disabled:opacity-50 disabled:cursor-not-allowed"
-                aria-label="Logout"
-                type="button"
-              >
-                {user ? (loading ? "در حال خروج..." : "خروج") : "ورود"}
-              </button>
+              <LogoutButton />
               {!user ? (
                 <button
                   onClick={() => router.push("/register")}
@@ -116,14 +91,6 @@ function HomeHeader() {
           </div>
         </div>
       </header>
-
-      {logOut && (
-        <ModalComponent
-          type="logout"
-          handleWork={handleLogout}
-          closeModal={() => setLogOut(false)}
-        />
-      )}
     </>
   );
 }

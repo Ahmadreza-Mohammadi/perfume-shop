@@ -23,7 +23,7 @@ export default function MenuWrapper() {
   return (
     <div
       className={`
-        fixed bottom-0 left-0 right-0 z-50
+        fixed bottom-0 left-0 right-0 z-50 md:hidden
         transition-all duration-500 ease-out
         ${
           isVisible ? "translate-y-0 opacity-100" : "translate-y-full opacity-0"
